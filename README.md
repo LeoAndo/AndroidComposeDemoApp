@@ -2,7 +2,7 @@
 templates for jetpack compose
 
 # Developement Environment
-<img width="624" alt="スクリーンショット 2021-12-18 13 52 13" src="https://user-images.githubusercontent.com/16476224/146629462-5bc5cabd-819f-4f0c-926f-78b86ce6ba06.png">
+<img width="515" alt="スクリーンショット 2021-12-18 13 53 22" src="https://user-images.githubusercontent.com/16476224/146629502-23441780-4265-4692-ade5-2922ba22168f.png">
 
 
 # refs
