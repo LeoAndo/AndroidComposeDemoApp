@@ -7,6 +7,13 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def localProperties = new Properties()
+try {
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+} catch (Exception e) {
+    logger.warn("No Local Properties File Found!")
+}
+
 android {
     compileSdk 31
 
@@ -16,6 +23,14 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
+
+        // UNSPLASH
+        if (!localProperties['unsplashAccessKey']) {
+            logger.warn('You can add it to local.properties once you have gotten it from Play. ' +
+                    'Example: unsplashAccessKey=[key value]')
+        }
+        buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + localProperties['unsplashAccessKey'] + "\"")
+        buildConfigField "String", "UNSPLASH_API_DOMAIN", "\"https://api.unsplash.com/\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -75,7 +90,6 @@ dependencies {
     debugImplementation Libs.AndroidX.Compose.tooling
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
 
-
     // Splash
     implementation Libs.AndroidX.Core.splash
 
@@ -87,4 +101,16 @@ dependencies {
     androidTestImplementation Libs.Hilt.android
     androidTestImplementation Libs.Hilt.testing
     kaptAndroidTest Libs.Hilt.compiler
+
+    // Image
+    implementation Libs.Coil.coilCompose
+
+    // network
+    implementation Libs.Retrofit.retrofit
+    implementation Libs.Retrofit.moshiAdapter
+    implementation Libs.OkhHttp3.okhttp
+    implementation Libs.OkhHttp3.loggingInterceptor
+    implementation Libs.Moshi.moshi
+    implementation Libs.Moshi.moshiKotlin
+    kapt Libs.Moshi.codegen
 }

@@ -111,6 +111,24 @@ object Libs {
     object Coil {
         const val coilCompose = "io.coil-kt:coil-compose:1.3.2"
     }
+
+    object Retrofit {
+        private const val version = "2.9.0"
+        const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val moshiAdapter = "com.squareup.retrofit2:converter-moshi:$version"
+    }
+
+    object Moshi {
+        private const val version = "1.9.3"
+        const val moshi = "com.squareup.moshi:moshi:$version"
+        const val codegen = "com.squareup.moshi:moshi-kotlin-codegen:$version"
+        const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
+    }
+    object OkhHttp3 {
+        private const val version = "5.0.0-alpha.2"
+        const val okhttp = "com.squareup.okhttp3:okhttp:$version"
+        const val loggingInterceptor =  "com.squareup.okhttp3:logging-interceptor:$version"
+    }
 }
 
 object Urls {
