@@ -3,6 +3,8 @@ import com.example.templateapp01.buildsrc.Libs
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -18,6 +20,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
+            }
         }
     }
 
@@ -64,4 +71,12 @@ dependencies {
 
     // Splash
     implementation Libs.AndroidX.Core.splash
+
+    // DI module
+    implementation Libs.Hilt.android
+    kapt Libs.Hilt.compiler
+    // DI: test module
+    androidTestImplementation Libs.Hilt.android
+    androidTestImplementation Libs.Hilt.testing
+    kaptAndroidTest Libs.Hilt.compiler
 }
