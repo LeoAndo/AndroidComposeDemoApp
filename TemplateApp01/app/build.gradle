@@ -21,11 +21,15 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        // @InstallInチェックを無効にする設定-START
+        /*
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments["dagger.hilt.disableModulesHaveInstallInCheck"] = "true"
             }
         }
+         */
+        // @InstallInチェックを無効にする設定-END
     }
 
     buildTypes {
