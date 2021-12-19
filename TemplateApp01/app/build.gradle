@@ -66,6 +66,8 @@ dependencies {
     implementation Libs.AndroidX.Compose.toolingPreview
     implementation Libs.AndroidX.Lifecycle.runtimeKtx
     implementation Libs.AndroidX.Activity.activityCompose
+    implementation Libs.AndroidX.Navigation.navigationCompose
+    implementation Libs.Accompanist.insets
     testImplementation Libs.JUnit.junit
     androidTestImplementation Libs.AndroidX.Test.Ext.junit
     androidTestImplementation Libs.AndroidX.Test.espressoCore
@@ -73,10 +75,12 @@ dependencies {
     debugImplementation Libs.AndroidX.Compose.tooling
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
 
+
     // Splash
     implementation Libs.AndroidX.Core.splash
 
     // DI module
+    implementation Libs.AndroidX.Hilt.hiltNavigationCompose
     implementation Libs.Hilt.android
     kapt Libs.Hilt.compiler
     // DI: test module
