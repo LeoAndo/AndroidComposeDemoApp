@@ -40,6 +40,7 @@ object Libs {
             const val coreKtx = "androidx.core:core-ktx:1.7.0"
             const val splash = "androidx.core:core-splashscreen:1.0.0-alpha02"
         }
+
         object Activity {
             const val activityCompose = "androidx.activity:activity-compose:1.4.0"
         }
@@ -70,15 +71,25 @@ object Libs {
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
         }
 
+        object Navigation {
+            const val navigationCompose = "androidx.navigation:navigation-compose:2.4.0-beta02"
+        }
+
+        object Hilt {
+            const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
+        }
+
         object Test {
             private const val version = "1.4.0"
             const val core = "androidx.test:core:$version"
             const val runner = "androidx.test:runner:$version"
             const val rules = "androidx.test:rules:$version"
+
             object Ext {
                 private const val version = "1.1.3"
                 const val junit = "androidx.test.ext:junit-ktx:$version"
             }
+
             const val espressoCore = "androidx.test.espresso:espresso-core:3.4.0"
         }
     }
@@ -105,5 +116,5 @@ object Libs {
 object Urls {
     const val mavenCentralSnapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
     const val composeSnapshotRepo = "https://androidx.dev/snapshots/builds/" +
-        "${Libs.AndroidX.Compose.snapshot}/artifacts/repository/"
+            "${Libs.AndroidX.Compose.snapshot}/artifacts/repository/"
 }
