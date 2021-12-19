@@ -15,4 +15,6 @@ https://developer.android.com/jetpack/guide/domain-layer<br>
 https://developer.android.com/jetpack/guide/data-layer<br>
 https://developer.android.com/jetpack/compose/mental-model<br>
 https://github.com/android/compose-samples<br>
+https://github.com/LeoAndo/droidkaigi2021-memo/labels/Jetpack%20Compose<br>
+https://github.com/LeoAndo/droidkaigi2021-memo/issues?q=is%3Aopen+is%3Aissue+label%3A%22Jetpack+Compose+1.1%22<br>
 
