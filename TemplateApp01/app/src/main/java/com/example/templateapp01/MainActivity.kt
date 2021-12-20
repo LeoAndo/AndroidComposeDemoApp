@@ -88,26 +88,26 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = SearchDestinations.TopRoute.routeName,
                     content = {
-                        SearchScreen(navigateToNextScreen = { id ->
-                            navController.navigate(SearchDestinations.ResultRoute.withArgs(id))
+                        SearchScreen(navigateToNextScreen = { query ->
+                            navController.navigate(SearchDestinations.ResultRoute.withArgs(query))
                         })
                     }
                 )
                 composable(
-                    route = SearchDestinations.ResultRoute.routeName + "/{pokemonId}",
+                    route = SearchDestinations.ResultRoute.routeName + "/{query}",
                     arguments = listOf(
-                        navArgument("pokemonId") {
+                        navArgument("query") {
                             type = NavType.StringType
                             defaultValue = "no value given"
                             nullable = false
                         }
                     )
                 ) {
-                    val pokemonId = requireNotNull(it.arguments?.getString("pokemonId"))
-                    Log.d(LOG_TAG, "pokemonId: $pokemonId")
+                    val query = requireNotNull(it.arguments?.getString("query"))
+                    Log.d(LOG_TAG, "query: $query")
                     ResultScreen(
                         navController = navController,
-                        id = pokemonId
+                        query = query
                     )
                 }
             }

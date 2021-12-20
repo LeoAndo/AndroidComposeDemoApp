@@ -72,7 +72,8 @@ fun PhotoItem(
     modifier: Modifier = Modifier
 ) {
     MyAppSurface(
-        border = BorderStroke(1.dp, Color.Green)
+        border = BorderStroke(1.dp, Color.Green),
+        // modifier = modifier
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

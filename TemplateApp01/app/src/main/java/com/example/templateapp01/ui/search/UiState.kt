@@ -1,4 +1,4 @@
-package com.example.templateapp01.ui.home
+package com.example.templateapp01.ui.search
 
 import com.example.templateapp01.model.UnSplashPhoto
 
