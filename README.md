@@ -30,6 +30,11 @@ https://github.com/LeoAndo/android-compose-templates/pulls?q=is%3Apr+is%3Aclosed
   - app architecture
     - single module
 
+- capture
+
+| Pixel 4 OS12 |
+|:---|
+|<img src="https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/capture/untitled.gif" width=320 /> |
 
 # refs
 
