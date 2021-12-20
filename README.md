@@ -15,8 +15,8 @@ OS: 8.0 (API Level 26) or later
 
 # Template01
 
-- coding flow
-https://github.com/LeoAndo/android-compose-templates/pulls?q=is%3Apr+is%3Aclosed
+- [coding flow](https://github.com/LeoAndo/android-compose-templates/pulls?q=is%3Apr+is%3Aclosed)
+
 
 - Features
   - UI
