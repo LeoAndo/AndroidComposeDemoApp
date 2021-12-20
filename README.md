@@ -29,6 +29,13 @@ https://github.com/LeoAndo/android-compose-templates/pulls?q=is%3Apr+is%3Aclosed
     - ([Unsplash](https://unsplash.com/documentation)) 
   - app architecture
     - single module
+    - Single Activity, No Fragments
+    - Navigation
+      - Navigation Graph & Nest Navigation
+  - other
+    - [buildSrc](https://github.com/LeoAndo/android-compose-templates/pull/4)
+    - [Manage secret key](https://github.com/LeoAndo/android-compose-templates/pull/9)
+    - [SplashScreen](https://github.com/LeoAndo/android-compose-templates/pull/2)
 
 - capture
 
