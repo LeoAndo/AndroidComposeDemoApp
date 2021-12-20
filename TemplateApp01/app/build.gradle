@@ -113,4 +113,8 @@ dependencies {
     implementation Libs.Moshi.moshi
     implementation Libs.Moshi.moshiKotlin
     kapt Libs.Moshi.codegen
+
+    // TODO Sequentially move to Material3.
+    implementation "androidx.compose.material:material:1.0.5"
+    // implementation "androidx.compose.material:material-icons-extended:1.0.5"
 }
