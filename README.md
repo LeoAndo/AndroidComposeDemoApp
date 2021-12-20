@@ -21,6 +21,8 @@ https://github.com/LeoAndo/android-compose-templates/pulls?q=is%3Apr+is%3Aclosed
 - Features
   - UI
     - [Material3](https://m3.material.io/)
+  - DI
+    - Dagger Hilt 
   - Network
     -  (retrofit, okhttp, moshi)
   - local (Under implementation)
