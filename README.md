@@ -45,6 +45,10 @@ OS: 8.0 (API Level 26) or later.
 |:---|
 |<img src="https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/capture/untitled.gif" width=320 /> |
 
+# Other Android Templates
+https://github.com/LeoAndo/AndroidAppTemplate<br>
+https://github.com/LeoAndo/android-app-teaching-material-templates<br>
+
 # refs
 
 ## about app architecture 
