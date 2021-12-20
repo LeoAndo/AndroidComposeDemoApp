@@ -11,7 +11,7 @@ templates for jetpack compose
 
 # Supported OS Version
 
-OS: 8.0 (API Level 26) or later
+OS: 8.0 (API Level 26) or later.
 
 # Template01
 
