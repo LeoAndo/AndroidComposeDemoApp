@@ -25,7 +25,7 @@ fun <T> Result<T>.successOr(fallback: T): T {
     return (this as? Result.Success<T>)?.data ?: fallback
 }
 
-suspend fun <T> safeApiCall(
+internal suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher = Dispatchers.IO,
     apiCall: suspend () -> T
 ): Result<T> {

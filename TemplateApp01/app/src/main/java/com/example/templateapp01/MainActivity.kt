@@ -88,7 +88,6 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = SearchDestinations.TopRoute.routeName,
                     content = {
-                        Log.d(LOG_TAG, "userId: " + it.arguments?.get("userId"))
                         SearchScreen(navigateToNextScreen = { id ->
                             navController.navigate(SearchDestinations.ResultRoute.withArgs(id))
                         })
