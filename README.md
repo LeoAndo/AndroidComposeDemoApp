@@ -8,6 +8,22 @@ templates for jetpack compose
 
 <img width="582" alt="スクリーンショット 2021-12-20 15 58 59" src="https://user-images.githubusercontent.com/16476224/146725205-ac598f5f-c5a6-4cc4-8d38-559ca50bdf77.png">
 
+# implementation Rules
+
+- API KEY is managed as confidential information (`local.properties`)
+- ui layer
+  - State handling is done by `@Composable function`.
+  - If simple logic, Call Repository (Interface) directly from ViewModel.
+  - Error handling(try catch) is done by ViewModel.
+- domain layer
+  - Pure Kotlin.
+  - hold Model(Serialize).
+- data layer
+  - Specify the Dispatcher.
+  - One shot processing throws an Exception individually.
+  - Coroutines Flow etc. return the processing result in the form of Sealed interface. (Reference: Paging3)
+- Proguard / R8
+  - [Use only stable libraries](https://github.com/LeoAndo/AndroidAppTemplate/issues/40#issue-925121453)
 
 # Supported OS Version
 
