@@ -15,13 +15,16 @@ templates for jetpack compose
   - State handling is done by `@Composable function`.
   - If simple logic, Call Repository (Interface) directly from ViewModel.
   - Error handling(try catch) is done by ViewModel.
+  - [Threading](https://developer.android.com/jetpack/guide/ui-layer#threading-concurrency)
 - domain layer
   - Pure Kotlin.
   - hold Model(Serialize).
+  - [Threading](https://developer.android.com/jetpack/guide/domain-layer#threading)
 - data layer
   - Specify the Dispatcher.
   - One shot processing throws an Exception individually.
   - Coroutines Flow etc. return the processing result in the form of Sealed interface. (Reference: Paging3)
+  - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
 - Proguard / R8
   - [Use only stable libraries](https://github.com/LeoAndo/AndroidAppTemplate/issues/40#issue-925121453)
 
