@@ -33,8 +33,8 @@ internal fun HomeScreen(
             .padding(12.dp),
     ) {
         when (val ret = uiState) {
-            UiState.Error -> {
-                Text(text = "fetch error.")
+            is UiState.Error -> {
+                Text(text = "fetch error: " + ret.error.message)
             }
             UiState.Loading -> {
                 FullScreenLoading()

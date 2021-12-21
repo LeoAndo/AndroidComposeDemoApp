@@ -48,9 +48,6 @@ internal fun ResultScreen(
             verticalArrangement = Arrangement.Center
         ) {
             when (val ret = uiState) {
-                UiState.Error -> {
-                    Text(text = "fetch error.")
-                }
                 UiState.Loading -> {
                     FullScreenLoading()
                 }
@@ -67,6 +64,12 @@ internal fun ResultScreen(
                         modifier = Modifier
                             .size(120.dp)
                     )
+                }
+                is UiState.Error -> {
+                    Text(text = "fetch error." + ret.result.message)
+                }
+                is UiState.OtherError -> {
+                    Text(text = "fetch OtherError." + ret.errorMessage)
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
