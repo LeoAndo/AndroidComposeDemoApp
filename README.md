@@ -18,10 +18,10 @@ templates for jetpack compose
   - [Threading](https://developer.android.com/jetpack/guide/ui-layer#threading-concurrency)
 - domain layer
   - Pure Kotlin.
-  - hold Model(Serialize).
   - [Threading](https://developer.android.com/jetpack/guide/domain-layer#threading)
 - data layer
   - Specify the Dispatcher.
+  - Model(Serialize).
   - One shot processing throws an Exception individually.
   - Coroutines Flow etc. return the processing result in the form of Sealed interface. (Reference: Paging3)
   - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
