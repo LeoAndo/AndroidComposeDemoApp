@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.templateapp01.data.Result
+import com.example.templateapp01.data.ErrorResult
+import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.data.repository.UnsplashRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,11 +25,16 @@ internal class HomeViewModel @Inject constructor(
 
         viewModelScope.launch {
             when (val ret = repository.searchPhotos("dogs")) {
-                is Result.Success -> {
+                is SafeResult.Success -> {
                     uiState.value = UiState.Photos(results = ret.data) // stop loading.
                 }
-                Result.BadRequestError, is Result.Error, Result.NotFoundError, Result.UnAuthorizedError -> {
-                    uiState.value = UiState.Error // stop loading.
+                is SafeResult.Error -> {
+                    when (ret.errorResult) {
+                        is ErrorResult.BadRequestError, is ErrorResult.NetworkError,
+                        is ErrorResult.NotFoundError, is ErrorResult.OtherError, is ErrorResult.UnAuthorizedError -> {
+                            uiState.value = UiState.Error(ret.errorResult) // stop loading.
+                        }
+                    }
                 }
             }
         }

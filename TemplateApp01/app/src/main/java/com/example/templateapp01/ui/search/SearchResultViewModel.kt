@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.templateapp01.data.Result
+import com.example.templateapp01.data.ErrorResult
 import com.example.templateapp01.data.repository.UnsplashRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,14 +25,18 @@ internal class SearchResultViewModel @Inject constructor(
     fun searchPhotos(query: String) {
         Log.d(LOG_TAG, "searchPhotos: $query")
         uiState.value = UiState.Loading // start loading.
-
         viewModelScope.launch {
-            when (val ret = repository.searchPhotos(query)) {
-                is Result.Success -> {
-                    uiState.value = UiState.Photos(results = ret.data) // stop loading.
-                }
-                Result.BadRequestError, is Result.Error, Result.NotFoundError, Result.UnAuthorizedError -> {
-                    uiState.value = UiState.Error // stop loading.
+            kotlin.runCatching {
+                repository.searchPhotos2(query)
+            }.onSuccess {
+                // success
+                uiState.value = UiState.Photos(results = it)
+            }.onFailure {
+                // error
+                if (it is ErrorResult) {
+                    uiState.value = UiState.Error(it)
+                } else {
+                    uiState.value = UiState.OtherError(it.localizedMessage ?: "")
                 }
             }
         }
