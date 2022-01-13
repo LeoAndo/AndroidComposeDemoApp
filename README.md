@@ -22,8 +22,7 @@ templates for jetpack compose
 - data layer
   - Specify the Dispatcher.
   - Model(Serialize).
-  - One shot processing throws an Exception individually.
-  - Coroutines Flow etc. return the processing result in the form of Sealed interface. (Reference: Paging3)
+  - throws an Exception individually.
   - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
 - Proguard / R8
   - [Use only stable libraries](https://github.com/LeoAndo/AndroidAppTemplate/issues/40#issue-925121453)
