@@ -1,5 +1,5 @@
 # Overview
-templates for jetpack compose
+templates for jetpack compose.
 
 # Developement Environment
 <img width="515" alt="スクリーンショット 2021-12-18 13 53 22" src="https://user-images.githubusercontent.com/16476224/146629502-23441780-4265-4692-ade5-2922ba22168f.png">
