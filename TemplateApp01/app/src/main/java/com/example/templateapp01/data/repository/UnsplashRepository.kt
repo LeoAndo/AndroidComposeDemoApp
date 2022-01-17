@@ -9,10 +9,4 @@ internal interface UnsplashRepository {
         page: Int = 1,
         perPage: Int = 10
     ): SafeResult<List<UnSplashPhoto>>
-
-    suspend fun searchPhotos2(
-        query: String,
-        page: Int = 1,
-        perPage: Int = 10
-    ): List<UnSplashPhoto>
 }

@@ -21,14 +21,4 @@ internal class UnsplashRepositoryImpl @Inject constructor(
             api.searchPhotos(query, page, perPage).results.map { it.toModel() }
         }
     }
-
-    override suspend fun searchPhotos2(
-        query: String,
-        page: Int,
-        perPage: Int
-    ): List<UnSplashPhoto> {
-        return apiCall {
-            api.searchPhotos(query, page, perPage).results.map { it.toModel() }
-        }
-    }
 }

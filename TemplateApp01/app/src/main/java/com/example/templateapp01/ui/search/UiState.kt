@@ -7,6 +7,5 @@ internal sealed interface UiState {
     object NoPhotos : UiState
     data class Photos(val results: List<UnSplashPhoto> = emptyList()) : UiState
     object Loading : UiState
-    data class OtherError(val errorMessage: String) : UiState
     data class Error(val result: ErrorResult) : UiState
 }
