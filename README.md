@@ -12,7 +12,7 @@ templates for jetpack compose.
 
 - API KEY is managed as confidential information (`local.properties`)
 - ui layer
-  - State handling is done by `@Composable function`.
+  - State handling is done by  only one `@Composable function`.
   - [Create a `stateless Composable` and create a `Preview Composable` for each UiState](https://github.com/LeoAndo/android-compose-templates/pull/18#discussion_r786196548)
   - If simple logic, Call Repository (Interface) directly from ViewModel.
   - Error handling(try catch) is done by ViewModel.
