@@ -68,9 +68,6 @@ internal fun ResultScreen(
                 is UiState.Error -> {
                     Text(text = "fetch error." + ret.result.message)
                 }
-                is UiState.OtherError -> {
-                    Text(text = "fetch OtherError." + ret.errorMessage)
-                }
             }
             Spacer(modifier = Modifier.height(20.dp))
             NavigateBackButton(navController = navController, modifier = Modifier.fillMaxWidth())
