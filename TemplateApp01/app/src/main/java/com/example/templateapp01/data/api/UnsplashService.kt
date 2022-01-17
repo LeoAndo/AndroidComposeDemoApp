@@ -1,6 +1,6 @@
 package com.example.templateapp01.data.api
 
-import com.example.templateapp01.data.response.UnsplashResponse
+import com.example.templateapp01.data.api.response.UnsplashResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
