@@ -89,7 +89,6 @@ internal fun HomeContent(
 fun HomeContentPreviewLoading() {
     TemplateApp01Theme {
         HomeContent(uiState = UiState.Loading, onClickReload = { }, onClickPhotoItem = {})
-        HomeScreen(navigateToNextScreen = {})
     }
 }
 
@@ -101,6 +100,5 @@ fun HomeContentPreviewError() {
             uiState = UiState.Error(error = ErrorResult.NetworkError("error error...")),
             onClickReload = { },
             onClickPhotoItem = {})
-        HomeScreen(navigateToNextScreen = {})
     }
 }
