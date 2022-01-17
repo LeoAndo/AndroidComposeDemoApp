@@ -48,7 +48,7 @@ internal fun ResultScreen(
             verticalArrangement = Arrangement.Center
         ) {
             when (val ret = uiState) {
-                UiState.Loading -> {
+                UiState.Initial, UiState.Loading -> {
                     FullScreenLoading()
                 }
                 UiState.NoPhotos -> {

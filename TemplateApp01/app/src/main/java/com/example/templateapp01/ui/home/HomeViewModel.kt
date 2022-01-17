@@ -16,7 +16,7 @@ internal class HomeViewModel @Inject constructor(
     private val searchPhotosUseCase: SearchPhotosUseCase
 ) : ViewModel() {
 
-    var uiState = mutableStateOf<UiState>(UiState.NoPhotos)
+    var uiState = mutableStateOf<UiState>(UiState.Initial)
         private set
 
     init {

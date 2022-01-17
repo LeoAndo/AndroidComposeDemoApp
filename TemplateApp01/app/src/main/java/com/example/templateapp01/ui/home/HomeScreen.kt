@@ -36,7 +36,7 @@ internal fun HomeScreen(
             is UiState.Error -> {
                 Text(text = "fetch error: " + ret.error.message)
             }
-            UiState.Loading -> {
+            UiState.Initial, UiState.Loading -> {
                 FullScreenLoading()
             }
             UiState.NoPhotos -> {
