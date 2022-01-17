@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
         ) {
 
             composable(route = TopDestinations.HomeRoute.routeName) {
-                HomeScreen()
+                HomeScreen(navigateToNextScreen = {})
             }
 
             composable(route = TopDestinations.FavoriteRoute.routeName) {
