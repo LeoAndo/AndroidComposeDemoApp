@@ -1,32 +1,39 @@
 package com.example.templateapp01.ui.home
 
-import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.templateapp01.model.UnSplashPhoto
+import com.example.templateapp01.data.ErrorResult
+import com.example.templateapp01.ui.components.*
 import com.example.templateapp01.ui.components.FullScreenLoading
-import com.example.templateapp01.ui.components.MyAppSurface
-import com.example.templateapp01.ui.components.PhotoImage
+import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
+// Stateful Composable that depends on ViewModel.
 @Composable
 internal fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    navigateToNextScreen: (String) -> Unit
 ) {
-    val uiState by remember { viewModel.uiState }
-    Log.d(HomeViewModel.LOG_TAG, "uiState: $uiState")
+    HomeContent(
+        uiState = viewModel.uiState,
+        onClickReload = { viewModel.searchPhotos() },
+        onClickPhotoItem = navigateToNextScreen
+    )
+}
+
+// stateless Composable.
+@Composable
+internal fun HomeContent(
+    uiState: UiState,
+    onClickReload: () -> Unit,
+    onClickPhotoItem: (String) -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -34,13 +41,25 @@ internal fun HomeScreen(
     ) {
         when (val ret = uiState) {
             is UiState.Error -> {
-                Text(text = "fetch error: " + ret.error.message)
+                ErrorMessage(
+                    message = "fetch error: ${ret.error.message}",
+                    onClickReload = onClickReload,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentSize()
+                )
             }
             UiState.Initial, UiState.Loading -> {
                 FullScreenLoading()
             }
             UiState.NoPhotos -> {
-                Text(text = "empty list.")
+                ErrorMessage(
+                    message = "empty list.",
+                    onClickReload = onClickReload,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .wrapContentSize()
+                )
             }
             is UiState.Photos -> {
                 LazyRow(
@@ -52,7 +71,7 @@ internal fun HomeScreen(
                         PhotoItem(
                             photo = photo,
                             onClick = {
-                                Log.d("HomeScreen", "PhotoItem Clicked! id: $it")
+                                onClickPhotoItem(it)
                             },
                             modifier = Modifier
                                 .size(120.dp)
@@ -65,33 +84,23 @@ internal fun HomeScreen(
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun PhotoItem(
-    photo: UnSplashPhoto,
-    onClick: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    MyAppSurface(
-        border = BorderStroke(1.dp, Color.Green),
-        // modifier = modifier
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .clickable(onClick = { onClick(photo.id) })
-                .padding(8.dp)
-        ) {
-            PhotoImage(
-                imageUrl = photo.urls.regular,
-                elevation = 4.dp,
-                contentDescription = photo.user.username,
-                modifier = Modifier.size(120.dp)
-            )
-            Text(
-                text = photo.user.username,
-                style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-        }
+fun HomeContentPreviewLoading() {
+    TemplateApp01Theme {
+        HomeContent(uiState = UiState.Loading, onClickReload = { }, onClickPhotoItem = {})
+        HomeScreen(navigateToNextScreen = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeContentPreviewError() {
+    TemplateApp01Theme {
+        HomeContent(
+            uiState = UiState.Error(error = ErrorResult.NetworkError("error error...")),
+            onClickReload = { },
+            onClickPhotoItem = {})
+        HomeScreen(navigateToNextScreen = {})
     }
 }

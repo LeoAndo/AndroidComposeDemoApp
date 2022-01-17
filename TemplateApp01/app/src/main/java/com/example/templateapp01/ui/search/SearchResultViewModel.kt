@@ -1,7 +1,9 @@
 package com.example.templateapp01.ui.search
 
 import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.templateapp01.data.ErrorResult
@@ -16,27 +18,28 @@ internal class SearchResultViewModel @Inject constructor(
     private val searchPhotosUseCase: SearchPhotosUseCase
 ) : ViewModel() {
 
-    var uiState = mutableStateOf<UiState>(UiState.Initial)
+    var uiState by mutableStateOf<UiState>(UiState.NoPhotos)
         private set
 
     init {
         Log.d(LOG_TAG, "init: " + hashCode())
+        uiState = UiState.Initial
     }
 
     fun searchPhotos(query: String) {
         Log.d(LOG_TAG, "searchPhotos: $query")
-        uiState.value = UiState.Loading // start loading.
+        uiState = UiState.Loading // start loading.
 
         viewModelScope.launch {
             when (val ret = searchPhotosUseCase.invoke(query)) {
                 is SafeResult.Success -> {
-                    uiState.value = UiState.Photos(results = ret.data) // stop loading.
+                    uiState = UiState.Photos(results = ret.data) // stop loading.
                 }
                 is SafeResult.Error -> {
                     when (ret.errorResult) {
                         is ErrorResult.BadRequestError, is ErrorResult.NetworkError,
                         is ErrorResult.NotFoundError, is ErrorResult.OtherError, is ErrorResult.UnAuthorizedError -> {
-                            uiState.value = UiState.Error(ret.errorResult) // stop loading.
+                            uiState = UiState.Error(ret.errorResult) // stop loading.
                         }
                     }
                 }
