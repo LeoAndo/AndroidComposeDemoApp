@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.templateapp01.data.ErrorResult
 import com.example.templateapp01.data.SafeResult
-import com.example.templateapp01.domain.usecase.SearchPhotosUseCase
+import com.example.templateapp01.data.repository.UnsplashRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 internal class SearchResultViewModel @Inject constructor(
-    private val searchPhotosUseCase: SearchPhotosUseCase
+    private val repository: UnsplashRepository
 ) : ViewModel() {
 
     var uiState by mutableStateOf<SearchResultUiState>(SearchResultUiState.NoPhotos)
@@ -31,7 +31,7 @@ internal class SearchResultViewModel @Inject constructor(
         uiState = SearchResultUiState.Loading // start loading.
 
         viewModelScope.launch {
-            when (val ret = searchPhotosUseCase.invoke(query)) {
+            when (val ret = repository.searchPhotos(query)) {
                 is SafeResult.Success -> {
                     uiState = SearchResultUiState.Photos(results = ret.data) // stop loading.
                 }
