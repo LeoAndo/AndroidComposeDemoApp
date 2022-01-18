@@ -49,7 +49,7 @@ object Libs {
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.1.0-beta03"
+            const val version = "1.1.0-rc01"
 
             const val ui = "androidx.compose.ui:ui:1.1.0-beta04"
             const val runtime = "androidx.compose.runtime:runtime:$version"
@@ -72,7 +72,7 @@ object Libs {
         }
 
         object Navigation {
-            const val navigationCompose = "androidx.navigation:navigation-compose:2.4.0-beta02"
+            const val navigationCompose = "androidx.navigation:navigation-compose:2.4.0-rc01"
         }
 
         object Hilt {
