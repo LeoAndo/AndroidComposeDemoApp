@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.templateapp01.data.ErrorResult
 import com.example.templateapp01.data.SafeResult
-import com.example.templateapp01.domain.usecase.SearchPhotosUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.example.templateapp01.data.repository.UnsplashRepository
 
 @HiltViewModel
 internal class HomeViewModel @Inject constructor(
-    private val searchPhotosUseCase: SearchPhotosUseCase
+    private val repository: UnsplashRepository
 ) : ViewModel() {
 
     var uiState by mutableStateOf<HomeUiState>(HomeUiState.Initial)
@@ -30,7 +30,7 @@ internal class HomeViewModel @Inject constructor(
         uiState = HomeUiState.Loading // start loading.
 
         viewModelScope.launch {
-            when (val ret = searchPhotosUseCase("dogs")) {
+            when (val ret = repository.searchPhotos("dogs")) {
                 is SafeResult.Success -> {
                     uiState = HomeUiState.Photos(results = ret.data) // stop loading.
                 }
