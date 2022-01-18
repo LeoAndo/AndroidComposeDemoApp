@@ -18,7 +18,7 @@ internal class HomeViewModel @Inject constructor(
     private val searchPhotosUseCase: SearchPhotosUseCase
 ) : ViewModel() {
 
-    var uiState by mutableStateOf<UiState>(UiState.Initial)
+    var uiState by mutableStateOf<HomeUiState>(HomeUiState.Initial)
         private set
 
     init {
@@ -27,18 +27,18 @@ internal class HomeViewModel @Inject constructor(
     }
 
     fun searchPhotos() {
-        uiState = UiState.Loading // start loading.
+        uiState = HomeUiState.Loading // start loading.
 
         viewModelScope.launch {
             when (val ret = searchPhotosUseCase("dogs")) {
                 is SafeResult.Success -> {
-                    uiState = UiState.Photos(results = ret.data) // stop loading.
+                    uiState = HomeUiState.Photos(results = ret.data) // stop loading.
                 }
                 is SafeResult.Error -> {
                     when (ret.errorResult) {
                         is ErrorResult.BadRequestError, is ErrorResult.NetworkError,
                         is ErrorResult.NotFoundError, is ErrorResult.OtherError, is ErrorResult.UnAuthorizedError -> {
-                            uiState = UiState.Error(ret.errorResult) // stop loading.
+                            uiState = HomeUiState.Error(ret.errorResult) // stop loading.
                         }
                     }
                 }

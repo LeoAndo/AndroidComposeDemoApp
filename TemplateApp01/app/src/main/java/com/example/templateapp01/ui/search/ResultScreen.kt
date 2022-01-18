@@ -33,7 +33,7 @@ internal fun ResultScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ResultContent(
-    uiState: UiState,
+    uiState: SearchResultUiState,
     navController: NavHostController,
     onClickReload: () -> Unit
 ) {
@@ -54,14 +54,14 @@ internal fun ResultContent(
             verticalArrangement = Arrangement.Center
         ) {
             when (val ret = uiState) {
-                UiState.Initial -> {
+                SearchResultUiState.Initial -> {
                     onClickReload()
                     Log.d("ResultScreen", "Initial")
                 }
-                UiState.Loading -> {
+                SearchResultUiState.Loading -> {
                     FullScreenLoading()
                 }
-                UiState.NoPhotos -> {
+                SearchResultUiState.NoPhotos -> {
                     ErrorMessage(
                         message = "empty list.",
                         onClickReload = onClickReload,
@@ -70,7 +70,7 @@ internal fun ResultContent(
                             .wrapContentSize()
                     )
                 }
-                is UiState.Photos -> {
+                is SearchResultUiState.Photos -> {
                     PhotoItem(
                         photo = ret.results.last(),
                         onClick = {
@@ -80,7 +80,7 @@ internal fun ResultContent(
                             .size(120.dp)
                     )
                 }
-                is UiState.Error -> {
+                is SearchResultUiState.Error -> {
                     ErrorMessage(
                         message = "fetch error." + ret.result.message,
                         onClickReload = onClickReload,
@@ -101,7 +101,7 @@ internal fun ResultContent(
 fun ResultContentPreviewInit() {
     TemplateApp01Theme {
         ResultContent(
-            uiState = UiState.Initial,
+            uiState = SearchResultUiState.Initial,
             navController = rememberNavController(),
             onClickReload = {})
     }
@@ -112,7 +112,7 @@ fun ResultContentPreviewInit() {
 fun ResultContentPreviewEmpty() {
     TemplateApp01Theme {
         ResultContent(
-            uiState = UiState.NoPhotos,
+            uiState = SearchResultUiState.NoPhotos,
             navController = rememberNavController(),
             onClickReload = {})
     }
@@ -141,7 +141,7 @@ fun ResultContentPreviewSuccess() {
     val navController = rememberNavController()
     TemplateApp01Theme {
         ResultContent(
-            uiState = UiState.Photos(photos),
+            uiState = SearchResultUiState.Photos(photos),
             navController = navController,
             onClickReload = {})
     }
@@ -152,7 +152,7 @@ fun ResultContentPreviewSuccess() {
 fun ResultContentPreviewLoading() {
     TemplateApp01Theme {
         ResultContent(
-            uiState = UiState.Loading,
+            uiState = SearchResultUiState.Loading,
             navController = rememberNavController(),
             onClickReload = {})
     }
@@ -163,7 +163,7 @@ fun ResultContentPreviewLoading() {
 fun ResultContentPreviewError() {
     TemplateApp01Theme {
         ResultContent(
-            uiState = UiState.Error(result = ErrorResult.NetworkError("error error error")),
+            uiState = SearchResultUiState.Error(result = ErrorResult.NetworkError("error error error")),
             navController = rememberNavController(),
             onClickReload = {})
     }

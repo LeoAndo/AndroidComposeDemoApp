@@ -18,28 +18,28 @@ internal class SearchResultViewModel @Inject constructor(
     private val searchPhotosUseCase: SearchPhotosUseCase
 ) : ViewModel() {
 
-    var uiState by mutableStateOf<UiState>(UiState.NoPhotos)
+    var uiState by mutableStateOf<SearchResultUiState>(SearchResultUiState.NoPhotos)
         private set
 
     init {
         Log.d(LOG_TAG, "init: " + hashCode())
-        uiState = UiState.Initial
+        uiState = SearchResultUiState.Initial
     }
 
     fun searchPhotos(query: String) {
         Log.d(LOG_TAG, "searchPhotos: $query")
-        uiState = UiState.Loading // start loading.
+        uiState = SearchResultUiState.Loading // start loading.
 
         viewModelScope.launch {
             when (val ret = searchPhotosUseCase.invoke(query)) {
                 is SafeResult.Success -> {
-                    uiState = UiState.Photos(results = ret.data) // stop loading.
+                    uiState = SearchResultUiState.Photos(results = ret.data) // stop loading.
                 }
                 is SafeResult.Error -> {
                     when (ret.errorResult) {
                         is ErrorResult.BadRequestError, is ErrorResult.NetworkError,
                         is ErrorResult.NotFoundError, is ErrorResult.OtherError, is ErrorResult.UnAuthorizedError -> {
-                            uiState = UiState.Error(ret.errorResult) // stop loading.
+                            uiState = SearchResultUiState.Error(ret.errorResult) // stop loading.
                         }
                     }
                 }
