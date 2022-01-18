@@ -30,7 +30,7 @@ internal fun HomeScreen(
 // stateless Composable.
 @Composable
 internal fun HomeContent(
-    uiState: UiState,
+    uiState: HomeUiState,
     onClickReload: () -> Unit,
     onClickPhotoItem: (String) -> Unit
 ) {
@@ -40,7 +40,7 @@ internal fun HomeContent(
             .padding(12.dp),
     ) {
         when (val ret = uiState) {
-            is UiState.Error -> {
+            is HomeUiState.Error -> {
                 ErrorMessage(
                     message = "fetch error: ${ret.error.message}",
                     onClickReload = onClickReload,
@@ -49,10 +49,10 @@ internal fun HomeContent(
                         .wrapContentSize()
                 )
             }
-            UiState.Initial, UiState.Loading -> {
+            HomeUiState.Initial, HomeUiState.Loading -> {
                 FullScreenLoading()
             }
-            UiState.NoPhotos -> {
+            HomeUiState.NoPhotos -> {
                 ErrorMessage(
                     message = "empty list.",
                     onClickReload = onClickReload,
@@ -61,7 +61,7 @@ internal fun HomeContent(
                         .wrapContentSize()
                 )
             }
-            is UiState.Photos -> {
+            is HomeUiState.Photos -> {
                 LazyRow(
                     // modifier = modifier,
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -88,7 +88,7 @@ internal fun HomeContent(
 @Composable
 fun HomeContentPreviewLoading() {
     TemplateApp01Theme {
-        HomeContent(uiState = UiState.Loading, onClickReload = { }, onClickPhotoItem = {})
+        HomeContent(uiState = HomeUiState.Loading, onClickReload = { }, onClickPhotoItem = {})
     }
 }
 
@@ -97,7 +97,7 @@ fun HomeContentPreviewLoading() {
 fun HomeContentPreviewError() {
     TemplateApp01Theme {
         HomeContent(
-            uiState = UiState.Error(error = ErrorResult.NetworkError("error error...")),
+            uiState = HomeUiState.Error(error = ErrorResult.NetworkError("error error...")),
             onClickReload = { },
             onClickPhotoItem = {})
     }
