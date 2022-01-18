@@ -19,13 +19,13 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object ApiModule {
+internal object ApiModule {
     private val CONTENT_TYPE = "application/json".toMediaType()
     private const val TIMEOUT_SEC: Long = 15
 
     @Singleton
     @Provides
-    internal fun provideUnsplashService(): UnsplashService {
+    fun provideUnsplashService(): UnsplashService {
         val okHttpClientBuilder = createOkHttpClientBuilder().apply {
             addInterceptor(Interceptor { chain ->
                 val request = chain.request()

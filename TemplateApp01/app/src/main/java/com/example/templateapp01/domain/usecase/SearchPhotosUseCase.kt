@@ -2,16 +2,18 @@ package com.example.templateapp01.domain.usecase
 
 import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.data.repository.UnsplashRepository
+import com.example.templateapp01.di.DefaultDispatcher
 import com.example.templateapp01.model.UnSplashPhoto
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class SearchPhotosUseCase @Inject constructor(
-    private val unsplashRepository: UnsplashRepository
+    private val unsplashRepository: UnsplashRepository,
+    @DefaultDispatcher private val dispatcher: CoroutineDispatcher
 ) {
     suspend operator fun invoke(query: String): SafeResult<List<UnSplashPhoto>> {
-        return withContext(Dispatchers.Default) {
+        return withContext(dispatcher) {
             unsplashRepository.searchPhotos(query)
         }
     }
