@@ -32,7 +32,7 @@ android {
         buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + localProperties['unsplashAccessKey'] + "\"")
         buildConfigField "String", "UNSPLASH_API_DOMAIN", "\"https://api.unsplash.com/\""
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.templateapp01.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -89,6 +89,7 @@ dependencies {
     androidTestImplementation Libs.AndroidX.Compose.uiTest
     debugImplementation Libs.AndroidX.Compose.tooling
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
+    androidTestImplementation Libs.AndroidX.Test.runner
 
     // Splash
     implementation Libs.AndroidX.Core.splash
