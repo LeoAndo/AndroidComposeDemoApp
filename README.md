@@ -20,11 +20,13 @@ templates for jetpack compose.
 - domain layer
   - Pure Kotlin.
   - [Threading](https://developer.android.com/jetpack/guide/domain-layer#threading)
+  - DO inject Dispatchers
 - data layer
   - Specify the Dispatcher.
   - Model(Serialize).
   - throws an Exception individually.
   - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
+  - DO inject Dispatchers
 - Proguard / R8
   - [Use only stable libraries](https://github.com/LeoAndo/AndroidAppTemplate/issues/40#issue-925121453)
 
@@ -42,6 +44,10 @@ OS: 8.0 (API Level 26) or later.
     - [Material3](https://m3.material.io/)
   - DI
     - Dagger Hilt 
+  - Unit Test
+    - [test](https://github.com/LeoAndo/android-compose-templates/tree/main/TemplateApp01/app/src/test/java)
+    - [sharedTest](https://github.com/LeoAndo/android-compose-templates/tree/main/TemplateApp01/app/src/sharedTest/java/com/example/templateapp01) 
+    - [androidTest](https://github.com/LeoAndo/android-compose-templates/tree/main/TemplateApp01/app/src/androidTest/java/com/example/templateapp01) 
   - Network
     -  (retrofit, okhttp, moshi)
   - local (Under implementation)
