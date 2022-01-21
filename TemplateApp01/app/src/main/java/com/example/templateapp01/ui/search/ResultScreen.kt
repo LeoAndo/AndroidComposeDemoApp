@@ -54,11 +54,11 @@ internal fun ResultContent(
             verticalArrangement = Arrangement.Center
         ) {
             when (val ret = uiState) {
-                SearchResultUiState.Initial -> {
+                SearchResultUiState.SearchPhotos -> {
                     onClickReload()
                     Log.d("ResultScreen", "Initial")
                 }
-                SearchResultUiState.Loading -> {
+                SearchResultUiState.Initial, SearchResultUiState.Loading -> {
                     FullScreenLoading()
                 }
                 SearchResultUiState.NoPhotos -> {
@@ -112,7 +112,7 @@ fun ResultContentPreviewInit() {
 fun ResultContentPreviewEmpty() {
     TemplateApp01Theme {
         ResultContent(
-            uiState = SearchResultUiState.NoPhotos,
+            uiState = SearchResultUiState.Initial,
             navController = rememberNavController(),
             onClickReload = {})
     }

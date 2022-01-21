@@ -18,12 +18,12 @@ internal class SearchResultViewModel @Inject constructor(
     private val repository: UnsplashRepository
 ) : ViewModel() {
 
-    var uiState by mutableStateOf<SearchResultUiState>(SearchResultUiState.NoPhotos)
+    var uiState by mutableStateOf<SearchResultUiState>(SearchResultUiState.Initial)
         private set
 
     init {
         Log.d(LOG_TAG, "init: " + hashCode())
-        uiState = SearchResultUiState.Initial
+        uiState = SearchResultUiState.SearchPhotos
     }
 
     fun searchPhotos(query: String) {
@@ -33,7 +33,11 @@ internal class SearchResultViewModel @Inject constructor(
         viewModelScope.launch {
             when (val ret = repository.searchPhotos(query)) {
                 is SafeResult.Success -> {
-                    uiState = SearchResultUiState.Photos(results = ret.data) // stop loading.
+                    uiState = if (ret.data.isEmpty()) {
+                        SearchResultUiState.NoPhotos
+                    } else {
+                        SearchResultUiState.Photos(results = ret.data)
+                    }
                 }
                 is SafeResult.Error -> {
                     when (ret.errorResult) {

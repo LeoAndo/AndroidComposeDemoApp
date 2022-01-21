@@ -5,6 +5,7 @@ import com.example.templateapp01.model.UnSplashPhoto
 
 internal sealed interface SearchResultUiState {
     object Initial : SearchResultUiState
+    object SearchPhotos : SearchResultUiState
     object NoPhotos : SearchResultUiState
     data class Photos(val results: List<UnSplashPhoto> = emptyList()) : SearchResultUiState
     object Loading : SearchResultUiState
