@@ -56,7 +56,6 @@ internal fun ResultContent(
             when (val ret = uiState) {
                 SearchResultUiState.SearchPhotos -> {
                     onClickReload()
-                    Log.d("ResultScreen", "Initial")
                 }
                 SearchResultUiState.Initial, SearchResultUiState.Loading -> {
                     FullScreenLoading()
