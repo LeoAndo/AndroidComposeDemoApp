@@ -129,6 +129,10 @@ object Libs {
         const val okhttp = "com.squareup.okhttp3:okhttp:$version"
         const val loggingInterceptor =  "com.squareup.okhttp3:logging-interceptor:$version"
     }
+    object Mockito {
+        private const val version = "2.2.0"
+        const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:$version"
+    }
 }
 
 object Urls {

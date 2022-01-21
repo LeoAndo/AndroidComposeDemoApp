@@ -32,7 +32,11 @@ internal class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             when (val ret = repository.searchPhotos("dogs")) {
                 is SafeResult.Success -> {
-                    uiState = HomeUiState.Photos(results = ret.data) // stop loading.
+                    uiState = if (ret.data.isEmpty()) {
+                        HomeUiState.NoPhotos // stop loading.
+                    } else {
+                        HomeUiState.Photos(results = ret.data) // stop loading.
+                    }
                 }
                 is SafeResult.Error -> {
                     when (ret.errorResult) {

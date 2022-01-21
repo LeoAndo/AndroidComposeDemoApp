@@ -32,7 +32,7 @@ android {
         buildConfigField("String", "UNSPLASH_ACCESS_KEY", "\"" + localProperties['unsplashAccessKey'] + "\"")
         buildConfigField "String", "UNSPLASH_API_DOMAIN", "\"https://api.unsplash.com/\""
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.templateapp01.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -51,6 +51,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    // Tests can be Robolectric or instrumented tests
+    sourceSets {
+        String sharedTestDir = 'src/sharedTest/java'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
         }
     }
     compileOptions {
@@ -84,9 +94,12 @@ dependencies {
     implementation Libs.AndroidX.Navigation.navigationCompose
     implementation Libs.Accompanist.insets
     testImplementation Libs.JUnit.junit
+    testImplementation Libs.Kotlin.Coroutines.test
+    testImplementation Libs.Mockito.mockitoKotlin
     androidTestImplementation Libs.AndroidX.Test.Ext.junit
     androidTestImplementation Libs.AndroidX.Test.espressoCore
     androidTestImplementation Libs.AndroidX.Compose.uiTest
+    androidTestImplementation Libs.AndroidX.Test.runner
     debugImplementation Libs.AndroidX.Compose.tooling
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
 
