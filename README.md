@@ -98,3 +98,6 @@ https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:navi
 ## about paging
 
 https://github.com/yanzm/UiStateSample<br>
+
+## about Test Framework
+https://github.com/android/testing-samples<br>
