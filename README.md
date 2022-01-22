@@ -50,8 +50,9 @@ OS: 8.0 (API Level 26) or later.
     - [androidTest](https://github.com/LeoAndo/android-compose-templates/tree/main/TemplateApp01/app/src/androidTest/java/com/example/templateapp01) 
   - Network
     -  (retrofit, okhttp, moshi)
-  - local (Under implementation)
-    - ( room and datastore )
+  - local
+    - Room
+    - datastore (Under implementation)
   - Web API 
     - ([Unsplash](https://unsplash.com/documentation)) 
   - app architecture
