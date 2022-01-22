@@ -4,6 +4,7 @@ import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.data.repository.TodoRepository
 import com.example.templateapp01.data.room.dao.TodoDao
 import com.example.templateapp01.data.room.entity.TodoEntity
+import com.example.templateapp01.data.room.entity.toTodoData
 import com.example.templateapp01.data.room.entity.toTodoDataList
 import com.example.templateapp01.data.safeCall
 import com.example.templateapp01.di.IoDispatcher
@@ -33,6 +34,10 @@ internal class TodoRepositoryImpl @Inject constructor(
         safeCall(dispatcher) {
             todoDao.insertTodoData(*todoEntities)
         }
+    }
+
+    override suspend fun findTodoDataById(id: Int): SafeResult<TodoData> {
+        return safeCall(dispatcher) { todoDao.findTodoDataById(id).toTodoData() }
     }
 
     override suspend fun deleteAllTodoItems() {

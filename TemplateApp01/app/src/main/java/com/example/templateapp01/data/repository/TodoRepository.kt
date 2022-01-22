@@ -7,6 +7,7 @@ import java.util.*
 
 internal interface TodoRepository {
     suspend fun addTodoData(vararg todoData: TodoData)
+    suspend fun findTodoDataById(id: Int): SafeResult<TodoData>
     suspend fun deleteAllTodoItems()
     suspend fun updateTodoData(vararg todoData: TodoData)
     fun getTodoList(): Flow<List<TodoData>>

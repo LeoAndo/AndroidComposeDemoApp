@@ -20,6 +20,9 @@ internal interface TodoDao {
     @Query("SELECT * FROM $TABLE_NAME_TODO")
     fun findTodoListAsFlow(): Flow<List<TodoEntity>>
 
+    @Query("SELECT * FROM $TABLE_NAME_TODO WHERE id = :id")
+    fun findTodoDataById(id: Int): TodoEntity
+
     @Query("SELECT * FROM $TABLE_NAME_TODO WHERE completionDate != null")
     suspend fun findCompletedTodoList(): List<TodoEntity>
 

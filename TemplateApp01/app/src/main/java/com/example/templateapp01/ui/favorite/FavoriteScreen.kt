@@ -1,7 +1,6 @@
 package com.example.templateapp01.ui.favorite
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,12 +10,12 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.ui.components.AppAlertDialog
 import com.example.templateapp01.ui.components.TodoItem
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 import java.util.*
@@ -29,7 +28,8 @@ internal fun FavoriteScreen(
     var titleText by remember { mutableStateOf("") }
     var memoText by remember { mutableStateOf("") }
     var enabledAddButton by remember { mutableStateOf(false) }
-    val context = LocalContext.current
+    var selectedTodoDataId by remember { mutableStateOf<Int?>(null) }
+    var openDialog by remember { mutableStateOf(false) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,20 +50,36 @@ internal fun FavoriteScreen(
                 memoText = it
                 enabledAddButton = memoText.isNotBlank() && titleText.isNotBlank()
             },
-            onClickAddTodoItemButton = {
-                viewModel.addTodoData(it)
-            },
-            onClickDeleteAllTodoItemsButton = {
-                viewModel.deleteAllTodoItems()
-            }
+            onClickAddTodoItemButton = viewModel::addTodoData,
+            onClickDeleteAllTodoItemsButton = viewModel::deleteAllTodoItems
         )
         Spacer(modifier = Modifier.height(12.dp))
         TodoListContent(
             uiState = viewModel.uiState,
             onClickTodoItem = {
-                Toast.makeText(context, "CLick Item id = $it", Toast.LENGTH_LONG).show()
+                selectedTodoDataId = it
+                openDialog = true
             },
         )
+        AppAlertDialog(
+            openDialog = openDialog,
+            titleText = "Dialog Title",
+            messageText = "Has TODO ITEM completed?",
+            confirmText = "Yes",
+            dismissText = "No",
+            onDismissRequest = {
+                openDialog = false
+                selectedTodoDataId = null
+            },
+            onClickConfirmButton = {
+                openDialog = false
+                selectedTodoDataId?.let { viewModel.updateTodoData(it) }
+                selectedTodoDataId = null
+            },
+            onClickDismissButton = {
+                openDialog = false
+                selectedTodoDataId = null
+            })
     }
 }
 
@@ -134,7 +150,7 @@ internal fun TodoListContent(
                         TodoItem(
                             todoData = todoData,
                             onClick = {
-                                onClickTodoItem(it)
+                                onClickTodoItem(todoData.id)
                             },
                             modifier = Modifier
                                 .fillMaxWidth()

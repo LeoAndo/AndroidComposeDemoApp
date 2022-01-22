@@ -25,7 +25,7 @@ internal abstract class TodoDatabase : RoomDatabase() {
             return INSTANCE ?: synchronized(this) {
                 Room.databaseBuilder(
                     context, TodoDatabase::class.java,
-                    "onsen.db"
+                    "todo.db"
                 ).addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
