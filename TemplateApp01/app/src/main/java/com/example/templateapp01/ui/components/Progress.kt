@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
@@ -28,8 +29,18 @@ internal fun FullScreenLoading() {
     }
 }
 
-@Preview("FullScreenLoading")
-@Preview("FullScreenLoading (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(
+    name = "default",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4
+)
+@Preview(
+    name = "dark mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    device = Devices.PIXEL_4
+)
 @Composable
 fun PreviewSearchScreen() {
     TemplateApp01Theme {

@@ -82,6 +82,7 @@ fun TodoItem_Preview_Completed() {
         )
     }
 }
+
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
 @Composable
 fun TodoItem_Preview_InComplete() {

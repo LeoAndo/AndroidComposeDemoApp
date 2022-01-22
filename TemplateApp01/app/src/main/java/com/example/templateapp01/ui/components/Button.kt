@@ -32,7 +32,8 @@ fun NavigateBackButton(
 @Composable
 fun NavigateBackIconButton(
     navController: NavController,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
     if (navController.currentBackStackEntry == LocalLifecycleOwner.current &&
         navController.previousBackStackEntry != null
     ) {

@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -30,8 +31,18 @@ fun MyAppDivider(
 
 private const val DividerAlpha = 0.12f
 
-@Preview("default", showBackground = true)
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Preview(
+    "default",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4
+)
+@Preview(
+    "dark theme",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    device = Devices.PIXEL_4
+)
 @Composable
 private fun DividerPreview() {
     TemplateApp01Theme {
