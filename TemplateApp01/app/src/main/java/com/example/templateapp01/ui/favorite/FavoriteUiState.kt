@@ -1,0 +1,9 @@
+package com.example.templateapp01.ui.favorite
+
+import com.example.templateapp01.model.TodoData
+
+internal sealed interface FavoriteUiState {
+    object Initial : FavoriteUiState
+    data class UpdateTodoList(val todoList: List<TodoData>) : FavoriteUiState
+    data class Error(val errorMessage: String) : FavoriteUiState
+}
