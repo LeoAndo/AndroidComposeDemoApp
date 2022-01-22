@@ -36,7 +36,14 @@ internal fun FavoriteScreen(
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxSize()
-            .padding(12.dp),
+            .padding(
+                paddingValues = PaddingValues(
+                    start = 12.dp,
+                    end = 12.dp,
+                    top = 12.dp,
+                    bottom = 100.dp, // TODO: WORK AROUND : Countermeasures for problems hidden in the Navigation Bar
+                )
+            )
     ) {
         AddTodoItemContent(
             titleText = titleText,
