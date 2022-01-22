@@ -1,10 +1,12 @@
 package com.example.templateapp01.ui.search
 
+import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -95,9 +97,9 @@ internal fun ResultContent(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
 @Composable
-fun ResultContentPreviewInit() {
+fun ResultContent_Preview_Init() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Initial,
@@ -106,9 +108,9 @@ fun ResultContentPreviewInit() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
 @Composable
-fun ResultContentPreviewEmpty() {
+fun ResultContent_Preview_Empty() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Initial,
@@ -117,25 +119,26 @@ fun ResultContentPreviewEmpty() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
 @Composable
-fun ResultContentPreviewSuccess() {
-    val photos = mutableListOf<UnSplashPhoto>()
-    repeat(10) {
-        photos.add(
-            UnSplashPhoto(
-                id = "0",
-                urls = UnSplashPhoto.UnSplashPhotoUrls(
-                    full = "",
-                    regular = "https://images.unsplash.com/photo-1529778873920-4da4926a72c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMDY4NDh8MHwxfHNlYXJjaHwxMHx8Y2F0fGVufDB8fHx8MTY0MjQyODYxOQ&ixlib=rb-1.2.1&q=80&w=1080",
-                ),
-                likes = 0,
-                user = UnSplashPhoto.UnSplashUser(
-                    username = "e_d_g_a_r",
-                    profileImage = UnSplashPhoto.UnSplashUser.ProfileImage(null)
+fun ResultContent_Preview_Success() {
+    val photos = buildList {
+        repeat(3) {
+            add(
+                UnSplashPhoto(
+                    id = "0",
+                    urls = UnSplashPhoto.UnSplashPhotoUrls(
+                        full = "",
+                        regular = "https://images.unsplash.com/photo-1529778873920-4da4926a72c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMDY4NDh8MHwxfHNlYXJjaHwxMHx8Y2F0fGVufDB8fHx8MTY0MjQyODYxOQ&ixlib=rb-1.2.1&q=80&w=1080",
+                    ),
+                    likes = 0,
+                    user = UnSplashPhoto.UnSplashUser(
+                        username = "e_d_g_a_r",
+                        profileImage = UnSplashPhoto.UnSplashUser.ProfileImage(null)
+                    )
                 )
             )
-        )
+        }
     }
     val navController = rememberNavController()
     TemplateApp01Theme {
@@ -148,7 +151,7 @@ fun ResultContentPreviewSuccess() {
 
 @Preview(showBackground = true)
 @Composable
-fun ResultContentPreviewLoading() {
+fun ResultContent_Preview_Loading() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Loading,
@@ -159,7 +162,7 @@ fun ResultContentPreviewLoading() {
 
 @Preview(showBackground = true)
 @Composable
-fun ResultContentPreviewError() {
+fun ResultContent_Preview_Error() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Error(result = ErrorResult.NetworkError("error error error")),

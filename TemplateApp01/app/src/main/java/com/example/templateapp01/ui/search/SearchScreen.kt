@@ -8,6 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
@@ -18,7 +19,23 @@ internal fun SearchScreen(
 ) {
     var queryText by remember { mutableStateOf("") }
     var isEnableBtn by remember { mutableStateOf(false) }
+    SearchContent(
+        queryText,
+        isEnableBtn,
+        navigateToNextScreen = navigateToNextScreen,
+        onValueChange = {
+            queryText = it
+            isEnableBtn = it.isNotEmpty()
+        })
+}
 
+@Composable
+internal fun SearchContent(
+    queryText: String,
+    isEnableBtn: Boolean,
+    navigateToNextScreen: (String) -> Unit,
+    onValueChange: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -28,10 +45,7 @@ internal fun SearchScreen(
 
         OutlinedTextField(
             value = queryText,
-            onValueChange = {
-                queryText = it
-                isEnableBtn = it.isNotEmpty()
-            },
+            onValueChange = onValueChange,
             label = { Text(text = "query word") },
             modifier = Modifier.fillMaxWidth()
         )
@@ -47,13 +61,16 @@ internal fun SearchScreen(
     }
 }
 
-@Preview("SearchScreen")
-@Preview("SearchScreen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
 @Composable
-fun PreviewSearchScreen() {
+fun SearchContent() {
     TemplateApp01Theme {
         Surface {
-            SearchScreen(navigateToNextScreen = {})
+            SearchContent(
+                "queryText",
+                true,
+                navigateToNextScreen = {},
+                onValueChange = {})
         }
     }
 }
