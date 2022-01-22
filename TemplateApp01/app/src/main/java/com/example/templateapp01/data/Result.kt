@@ -40,15 +40,16 @@ internal fun <T> SafeResult<T>.successOr(fallback: T): T {
     return (this as? SafeResult.Success<T>)?.data ?: fallback
 }
 
-internal suspend fun <T> safeApiCall(
+internal suspend fun <T> safeCall(
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
 ): SafeResult<T> {
     return withContext(dispatcher) {
-        Log.w("safeApiCall", "currentThread: " + Thread.currentThread().name)
+        Log.d("safeCall", "currentThread: " + Thread.currentThread().name)
         try {
             SafeResult.Success(apiCall.invoke())
         } catch (e: Throwable) {
+            Log.d("safeCall", "error: " + e.localizedMessage)
             when (e) {
                 is HttpException -> {
                     when (e.code()) {

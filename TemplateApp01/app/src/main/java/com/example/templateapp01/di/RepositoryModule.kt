@@ -1,6 +1,8 @@
 package com.example.templateapp01.di
 
+import com.example.templateapp01.data.repository.TodoRepository
 import com.example.templateapp01.data.repository.UnsplashRepository
+import com.example.templateapp01.data.repository.impl.TodoRepositoryImpl
 import com.example.templateapp01.data.repository.impl.UnsplashRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -12,4 +14,7 @@ import dagger.hilt.components.SingletonComponent
 internal abstract class RepositoryModule {
     @Binds
     abstract fun bindUnsplashRepository(impl: UnsplashRepositoryImpl): UnsplashRepository
+
+    @Binds
+    abstract fun bindTodoRepository(impl: TodoRepositoryImpl): TodoRepository
 }
