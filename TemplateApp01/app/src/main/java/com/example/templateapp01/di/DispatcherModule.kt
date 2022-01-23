@@ -6,7 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Qualifier
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,11 +18,3 @@ internal object DispatcherModule {
     @Provides
     fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
 }
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-internal annotation class IoDispatcher
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-internal annotation class DefaultDispatcher
