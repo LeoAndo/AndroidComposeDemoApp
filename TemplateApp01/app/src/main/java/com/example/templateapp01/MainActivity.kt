@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -67,10 +68,9 @@ class MainActivity : ComponentActivity() {
                             "calculateStartPadding Rtl: " + it.calculateStartPadding(LayoutDirection.Rtl)
                         )
                         Log.d(TAG, "calculateBottomPadding: " + it.calculateBottomPadding())
-                        MyAppNavigationGraph(
-                            startDestination = items[selectedItem].routeName,
-                            modifier = Modifier.mainContentPadding(it)
-                        )
+                        Box(modifier = Modifier.mainContentPadding(it)) {
+                            MyAppNavigationGraph(startDestination = items[selectedItem].routeName)
+                        }
                     })
             }
         }
