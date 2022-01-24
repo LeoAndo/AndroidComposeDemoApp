@@ -11,10 +11,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.templateapp01.R
 import com.example.templateapp01.model.TodoData
 import com.example.templateapp01.ui.components.AppAlertDialog
 import com.example.templateapp01.ui.components.TodoItem
@@ -100,10 +102,10 @@ internal fun AddTodoItemContent(
     ) {
         TextField(value = titleText, onValueChange = onValueChangeTitleText, label = {
             Text(text = "Input Here Todo Title.")
-        }, modifier = Modifier.testTag("tag_field_title"))
+        }, modifier = Modifier.testTag(stringResource(id = R.string.tag_field_title)))
         TextField(value = memoText, onValueChange = onValueChangeMemoText, label = {
             Text(text = "Input Here Todo Memo.")
-        }, modifier = Modifier.testTag("tag_field_memo"))
+        }, modifier = Modifier.testTag(stringResource(id = R.string.tag_field_memo)))
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -112,7 +114,7 @@ internal fun AddTodoItemContent(
                     TodoData(title = titleText, memo = memoText, registrationDate = Date())
                 onClickAddTodoItemButton(todoData)
             }, enabled = enabledAddButton) {
-                Text(text = "Add Todo Item")
+                Text(text = stringResource(id = R.string.add_todo_item))
             }
 
             FilledTonalButton(
@@ -120,7 +122,7 @@ internal fun AddTodoItemContent(
                     onClickDeleteAllTodoItemsButton()
                 }
             ) {
-                Text(text = "Delete All Todo Items")
+                Text(text = stringResource(id = R.string.delete_todo_items))
             }
         }
     }
@@ -146,7 +148,7 @@ internal fun TodoListContent(
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier
-                        .testTag("tag_todo_item_list")
+                        .testTag(stringResource(id = R.string.tag_todo_item_list))
                 ) {
                     itemsIndexed(uiState.todoList) { _, todoData ->
                         TodoItem(

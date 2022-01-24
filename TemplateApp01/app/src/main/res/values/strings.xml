@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TemplateApp01</string>
+    <string name="app_name2">TemplateApp01</string>
+    <string name="add_todo_item">Add Todo Item</string>
+    <string name="tag_field_title">tag_field_title</string>
+    <string name="tag_field_memo">tag_field_memo</string>
+    <string name="tag_todo_item_list">tag_todo_item_list</string>
+    <string name="delete_todo_items">Delete All Todo Items</string>
+    <string name="tag_text_field">tag_text_field</string>
+    <string name="go_to_result_screen">to Result Screen.</string>
 </resources>
