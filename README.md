@@ -22,6 +22,7 @@ templates for jetpack compose.
 - ui layer
   - There is only one `Statefull @Composable function` (because check the layout in Preview depending on the state).
   - [Create a `stateless Composable` and create a `Preview Composable` for each UiState](https://github.com/LeoAndo/android-compose-templates/pull/18#discussion_r786196548)
+  - [use Scaffold content paddingValues](https://github.com/LeoAndo/android-compose-templates/pull/34)
   - If simple logic, Call Repository (Interface) directly from ViewModel.
   - Error handling(try catch) is done by ViewModel.
   - [Threading](https://developer.android.com/jetpack/guide/ui-layer#threading-concurrency)
