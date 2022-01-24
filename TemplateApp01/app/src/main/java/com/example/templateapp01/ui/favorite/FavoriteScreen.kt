@@ -10,6 +10,7 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -99,10 +100,10 @@ internal fun AddTodoItemContent(
     ) {
         TextField(value = titleText, onValueChange = onValueChangeTitleText, label = {
             Text(text = "Input Here Todo Title.")
-        })
+        }, modifier = Modifier.testTag("tag_field_title"))
         TextField(value = memoText, onValueChange = onValueChangeMemoText, label = {
             Text(text = "Input Here Todo Memo.")
-        })
+        }, modifier = Modifier.testTag("tag_field_memo"))
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
@@ -144,6 +145,8 @@ internal fun TodoListContent(
             is FavoriteUiState.UpdateTodoList -> {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier
+                        .testTag("tag_todo_item_list")
                 ) {
                     itemsIndexed(uiState.todoList) { _, todoData ->
                         TodoItem(
