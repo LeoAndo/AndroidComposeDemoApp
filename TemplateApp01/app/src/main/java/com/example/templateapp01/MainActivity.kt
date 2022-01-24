@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -16,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.templateapp01.ui.extentions.mainContentPadding
 import com.example.templateapp01.ui.favorite.FavoriteScreen
 import com.example.templateapp01.ui.home.HomeScreen
 import com.example.templateapp01.ui.search.ResultScreen
@@ -26,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     companion object {
-        const val LOG_TAG = "MainActivity"
+        const val TAG = "MainActivity"
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -41,21 +44,35 @@ class MainActivity : ComponentActivity() {
                     TopDestinations.FavoriteRoute,
                     TopDestinations.SearchRoute
                 )
-                Scaffold(bottomBar = {
-                    NavigationBar {
-                        items.forEachIndexed { index, item ->
-                            NavigationBarItem(
-                                icon = { Icon(item.icon, contentDescription = item.label) },
-                                label = { Text(item.label) },
-                                selected = selectedItem == index,
-                                onClick = { selectedItem = index }
-                            )
+                Scaffold(
+                    bottomBar = {
+                        NavigationBar {
+                            items.forEachIndexed { index, item ->
+                                NavigationBarItem(
+                                    icon = { Icon(item.icon, contentDescription = item.label) },
+                                    label = { Text(item.label) },
+                                    selected = selectedItem == index,
+                                    onClick = { selectedItem = index }
+                                )
+                            }
                         }
-                    }
-                }, content = {
-                    Log.d(LOG_TAG, "selectedItem: " + items[selectedItem].routeName)
-                    MyAppNavigationGraph(startDestination = items[selectedItem].routeName)
-                })
+                    }, content = {
+                        Log.d(TAG, "selectedItem: " + items[selectedItem].routeName)
+                        Log.d(TAG, "paddingValues: $it")
+                        Log.d(
+                            TAG,
+                            "calculateStartPadding Ltr: " + it.calculateStartPadding(LayoutDirection.Ltr)
+                        )
+                        Log.d(
+                            TAG,
+                            "calculateStartPadding Rtl: " + it.calculateStartPadding(LayoutDirection.Rtl)
+                        )
+                        Log.d(TAG, "calculateBottomPadding: " + it.calculateBottomPadding())
+                        MyAppNavigationGraph(
+                            startDestination = items[selectedItem].routeName,
+                            contentPaddingValues = it
+                        )
+                    })
             }
         }
     }
@@ -64,7 +81,8 @@ class MainActivity : ComponentActivity() {
     fun MyAppNavigationGraph(
         modifier: Modifier = Modifier,
         navController: NavHostController = rememberNavController(),
-        startDestination: String
+        startDestination: String,
+        contentPaddingValues: PaddingValues
     ) {
         NavHost(
             navController = navController,
@@ -72,13 +90,16 @@ class MainActivity : ComponentActivity() {
             modifier = modifier
         ) {
 
-            composable(route = TopDestinations.HomeRoute.routeName) {
-                HomeScreen(navigateToNextScreen = {})
-            }
+            composable(route = TopDestinations.HomeRoute.routeName, content = {
+                HomeScreen(
+                    modifier = Modifier.mainContentPadding(contentPaddingValues),
+                    navigateToNextScreen = {},
+                )
+            })
 
-            composable(route = TopDestinations.FavoriteRoute.routeName) {
-                FavoriteScreen()
-            }
+            composable(route = TopDestinations.FavoriteRoute.routeName, content = {
+                FavoriteScreen(modifier = Modifier.mainContentPadding(contentPaddingValues))
+            })
 
             // nest navigation
             navigation(
@@ -88,9 +109,12 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = SearchDestinations.TopRoute.routeName,
                     content = {
-                        SearchScreen(navigateToNextScreen = { query ->
-                            navController.navigate(SearchDestinations.ResultRoute.withArgs(query))
-                        })
+                        SearchScreen(
+                            modifier = Modifier.mainContentPadding(contentPaddingValues),
+                            navigateToNextScreen = { query ->
+                                navController.navigate(SearchDestinations.ResultRoute.withArgs(query))
+                            },
+                        )
                     }
                 )
                 composable(
@@ -101,24 +125,19 @@ class MainActivity : ComponentActivity() {
                             defaultValue = "no value given"
                             nullable = false
                         }
-                    )
-                ) {
-                    val query = requireNotNull(it.arguments?.getString("query"))
-                    Log.d(LOG_TAG, "query: $query")
-                    ResultScreen(
-                        navController = navController,
-                        query = query
-                    )
-                }
+                    ),
+                    content = {
+                        val query = requireNotNull(it.arguments?.getString("query"))
+                        Log.d(TAG, "query: $query")
+                        ResultScreen(
+                            navController = navController,
+                            query = query,
+                            modifier = Modifier
+                                .mainContentPadding(contentPaddingValues)
+                        )
+                    }
+                )
             }
-        }
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        TemplateApp01Theme {
-            // MainActivityScreen("Android")
         }
     }
 }

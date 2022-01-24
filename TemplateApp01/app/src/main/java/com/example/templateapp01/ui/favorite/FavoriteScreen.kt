@@ -23,7 +23,8 @@ import java.util.*
 // Stateful Composable that depends on ViewModel.
 @Composable
 internal fun FavoriteScreen(
-    viewModel: FavoriteViewModel = hiltViewModel()
+    modifier: Modifier = Modifier,
+    viewModel: FavoriteViewModel = hiltViewModel(),
 ) {
     var titleText by remember { mutableStateOf("") }
     var memoText by remember { mutableStateOf("") }
@@ -34,16 +35,7 @@ internal fun FavoriteScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                paddingValues = PaddingValues(
-                    start = 12.dp,
-                    end = 12.dp,
-                    top = 12.dp,
-                    bottom = 100.dp, // TODO: WORK AROUND : Countermeasures for problems hidden in the Navigation Bar
-                )
-            )
+        modifier = modifier
     ) {
         AddTodoItemContent(
             titleText = titleText,
@@ -142,18 +134,18 @@ internal fun TodoListContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        when (val ret = uiState) {
+        when (uiState) {
             FavoriteUiState.Initial -> {
 
             }
             is FavoriteUiState.Error -> {
-                Text(text = ret.errorMessage)
+                Text(text = uiState.errorMessage)
             }
             is FavoriteUiState.UpdateTodoList -> {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    itemsIndexed(ret.todoList) { _, todoData ->
+                    itemsIndexed(uiState.todoList) { _, todoData ->
                         TodoItem(
                             todoData = todoData,
                             onClick = {
