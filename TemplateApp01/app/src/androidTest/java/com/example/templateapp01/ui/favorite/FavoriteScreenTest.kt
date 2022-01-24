@@ -1,8 +1,14 @@
 package com.example.templateapp01.ui.favorite
 
+import android.content.Context
+import android.content.res.Resources
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.example.templateapp01.MainActivity
+import com.example.templateapp01.R
 import com.example.templateapp01.MyAppContent
 import com.example.templateapp01.common.saveScreenshot
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -11,21 +17,18 @@ import org.junit.Before
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
-
+// @RunWith(AndroidJUnit4::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @HiltAndroidTest
 class FavoriteScreenTest {
-
-    // TODO: WORK AROUND
     companion object {
-        private const val ADD_BUTTON_TEXT = "Add Todo Item"
-        private const val TAG_FIELD_TITLE = "tag_field_title"
-        private const val TAG_FIELD_MEMO = "tag_field_memo"
-        private const val TAG_TODO_ITEM_LIST = "tag_todo_item_list"
-        private const val DELETE_BUTTON_TEXT = "Delete All Todo Items"
+        private const val SCREENSHOT_FILENAME_PREFIX = "favorite_screen_test"
     }
+
+    private lateinit var resources: Resources
 
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
@@ -37,6 +40,7 @@ class FavoriteScreenTest {
     fun setUp() {
         hiltRule.inject()
         composeTestRule.setContent { MyAppContent() }
+        resources = ApplicationProvider.getApplicationContext<Context>().resources
         // navigate to FavoriteScreen.
         with(composeTestRule) {
             onNodeWithText("Favorite").performClick()
@@ -46,9 +50,9 @@ class FavoriteScreenTest {
     @Test
     fun state_init_not_enabled_add_item_button() {
         with(composeTestRule) {
-            onNodeWithText(ADD_BUTTON_TEXT).assertIsNotEnabled()
+            onNodeWithText(resources.getString(R.string.add_todo_item)).assertIsNotEnabled()
             saveScreenshot(
-                fileNamePrefix = "state_init_not_enabled_add_item_button",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
@@ -57,11 +61,11 @@ class FavoriteScreenTest {
     @Test
     fun input_todo_data_enabled_add_item_button() {
         with(composeTestRule) {
-            onNodeWithTag(TAG_FIELD_TITLE).performTextInput("hobby")
-            onNodeWithTag(TAG_FIELD_MEMO).performTextInput("pokemon")
-            onNodeWithText(ADD_BUTTON_TEXT).assertIsEnabled()
+            onNodeWithTag(resources.getString(R.string.tag_field_title)).performTextInput("hobby")
+            onNodeWithTag(resources.getString(R.string.tag_field_memo)).performTextInput("pokemon")
+            onNodeWithText(resources.getString(R.string.add_todo_item)).assertIsEnabled()
             saveScreenshot(
-                fileNamePrefix = "input_todo_data_enabled_add_item_button",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
@@ -70,11 +74,11 @@ class FavoriteScreenTest {
     @Test
     fun empty_input_memo_not_enabled_add_item_button() {
         with(composeTestRule) {
-            onNodeWithTag(TAG_FIELD_TITLE).performTextInput("hobby")
-            onNodeWithTag(TAG_FIELD_MEMO).performTextInput("")
-            onNodeWithText(ADD_BUTTON_TEXT).assertIsNotEnabled()
+            onNodeWithTag(resources.getString(R.string.tag_field_title)).performTextInput("hobby")
+            onNodeWithTag(resources.getString(R.string.tag_field_memo)).performTextInput("")
+            onNodeWithText(resources.getString(R.string.add_todo_item)).assertIsNotEnabled()
             saveScreenshot(
-                fileNamePrefix = "empty_input_memo_not_enabled_add_item_button",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
@@ -83,11 +87,11 @@ class FavoriteScreenTest {
     @Test
     fun empty_input_title_not_enabled_add_item_button() {
         with(composeTestRule) {
-            onNodeWithTag(TAG_FIELD_TITLE).performTextInput("")
-            onNodeWithTag(TAG_FIELD_MEMO).performTextInput("pokemon")
-            onNodeWithText(ADD_BUTTON_TEXT).assertIsNotEnabled()
+            onNodeWithTag(resources.getString(R.string.tag_field_title)).performTextInput("")
+            onNodeWithTag(resources.getString(R.string.tag_field_memo)).performTextInput("pokemon")
+            onNodeWithText(resources.getString(R.string.add_todo_item)).assertIsNotEnabled()
             saveScreenshot(
-                fileNamePrefix = "empty_input_title_not_enabled_add_item_button",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
@@ -96,12 +100,12 @@ class FavoriteScreenTest {
     @Test
     fun add_todo_item_displayed_todo_item_list() {
         with(composeTestRule) {
-            onNodeWithTag(TAG_FIELD_TITLE).performTextInput("hobby")
-            onNodeWithTag(TAG_FIELD_MEMO).performTextInput("pokemon")
-            onNodeWithText(ADD_BUTTON_TEXT).performClick()
-            onNodeWithTag(TAG_TODO_ITEM_LIST).assertIsDisplayed()
+            onNodeWithTag(resources.getString(R.string.tag_field_title)).performTextInput("hobby")
+            onNodeWithTag(resources.getString(R.string.tag_field_memo)).performTextInput("pokemon")
+            onNodeWithText(resources.getString(R.string.add_todo_item)).performClick()
+            onNodeWithTag(resources.getString(R.string.tag_todo_item_list)).assertIsDisplayed()
             saveScreenshot(
-                fileNamePrefix = "add_todo_item_displayed_todo_item_list",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
@@ -110,10 +114,10 @@ class FavoriteScreenTest {
     @Test
     fun delete_all_todo_items_not_displayed_todo_item_list() {
         with(composeTestRule) {
-            onNodeWithText(DELETE_BUTTON_TEXT).performClick()
-            onNodeWithTag(TAG_TODO_ITEM_LIST).assertIsNotDisplayed()
+            onNodeWithText(resources.getString(R.string.delete_todo_items)).performClick()
+            onNodeWithTag(resources.getString(R.string.tag_todo_item_list)).assertIsNotDisplayed()
             saveScreenshot(
-                fileNamePrefix = "delete_all_todo_items_not_displayed_todo_item_list",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }

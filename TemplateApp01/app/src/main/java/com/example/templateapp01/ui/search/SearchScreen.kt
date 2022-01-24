@@ -9,9 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.templateapp01.R
 import com.example.templateapp01.ui.extentions.mainContentPadding
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
@@ -53,16 +55,18 @@ internal fun SearchContent(
             label = { Text(text = "query word") },
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag("tag_text_field")
+                .testTag(stringResource(id = R.string.tag_text_field))
         )
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = {
                 navigateToNextScreen(queryText)
-            }, modifier = Modifier.fillMaxWidth().testTag("test_tag_button"),
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .testTag("test_tag_button"),
             enabled = isEnableBtn
         ) {
-            Text(text = "to Result Screen.")
+            Text(text = stringResource(id = R.string.go_to_result_screen))
         }
     }
 }

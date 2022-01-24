@@ -1,7 +1,12 @@
 package com.example.templateapp01.ui.search
 
+import android.content.Context
+import android.content.res.Resources
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.example.templateapp01.*
 import com.example.templateapp01.common.saveScreenshot
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -10,18 +15,19 @@ import org.junit.Before
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
+import com.example.templateapp01.R
 
+// @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class SearchScreenTest {
-
-    // TODO: WORK AROUND
     companion object {
-        private const val TAG_FIELD_QUERY = "tag_text_field"
-        private const val BUTTON_TEXT = "to Result Screen."
-        private const val RESULT_SCREEN_TEXT = "ResultScreen"
+        private const val SCREENSHOT_FILENAME_PREFIX = "search_screen_test"
     }
+
+    private lateinit var resources: Resources
 
     @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
@@ -33,6 +39,7 @@ class SearchScreenTest {
     fun setUp() {
         hiltRule.inject()
         composeTestRule.setContent { MyAppContent() }
+        resources = ApplicationProvider.getApplicationContext<Context>().resources
         // navigate to Search Screen.
         composeTestRule.onNodeWithText("Search").performClick()
     }
@@ -40,10 +47,10 @@ class SearchScreenTest {
     @Test
     fun input_query_enabled_button() {
         with(composeTestRule) {
-            onNodeWithTag(TAG_FIELD_QUERY).performTextInput("dogs")
-            onNodeWithText(BUTTON_TEXT).assertIsEnabled()
+            onNodeWithTag(resources.getString(R.string.tag_text_field)).performTextInput("dogs")
+            onNodeWithText(resources.getString(R.string.go_to_result_screen)).assertIsEnabled()
             saveScreenshot(
-                fileNamePrefix = "input_query_enabled_button",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
@@ -52,11 +59,11 @@ class SearchScreenTest {
     @Test
     fun navigate_result_screen() {
         with(composeTestRule) {
-            onNodeWithTag(TAG_FIELD_QUERY).performTextInput("dogs")
-            onNodeWithText(BUTTON_TEXT).performClick()
-            onNodeWithText(RESULT_SCREEN_TEXT).assertIsDisplayed()
+            onNodeWithTag(resources.getString(R.string.tag_text_field)).performTextInput("dogs")
+            onNodeWithText(resources.getString(R.string.go_to_result_screen)).performClick()
+            onNodeWithText("ResultScreen").assertIsDisplayed()
             saveScreenshot(
-                fileNamePrefix = "navigate_result_screen",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
@@ -65,10 +72,10 @@ class SearchScreenTest {
     @Test
     fun empty_input_query_enabled_button() {
         with(composeTestRule) {
-            onNodeWithTag(TAG_FIELD_QUERY).performTextInput("")
-            onNodeWithText(BUTTON_TEXT).assertIsNotEnabled()
+            onNodeWithTag(resources.getString(R.string.tag_text_field)).performTextInput("")
+            onNodeWithText(resources.getString(R.string.go_to_result_screen)).assertIsNotEnabled()
             saveScreenshot(
-                fileNamePrefix = "empty_input_query_enabled_button",
+                fileNamePrefix = SCREENSHOT_FILENAME_PREFIX,
                 node = onRoot()
             )
         }
