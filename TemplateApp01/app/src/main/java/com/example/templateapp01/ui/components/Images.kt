@@ -25,9 +25,9 @@ import com.example.templateapp01.ui.theme.TemplateApp01Theme
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun PhotoImage(
+    modifier: Modifier = Modifier,
     imageUrl: String,
     contentDescription: String?,
-    modifier: Modifier = Modifier,
     elevation: Dp = 0.dp
 ) {
     MyAppSurface(

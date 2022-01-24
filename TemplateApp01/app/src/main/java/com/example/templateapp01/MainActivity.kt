@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -70,7 +69,7 @@ class MainActivity : ComponentActivity() {
                         Log.d(TAG, "calculateBottomPadding: " + it.calculateBottomPadding())
                         MyAppNavigationGraph(
                             startDestination = items[selectedItem].routeName,
-                            contentPaddingValues = it
+                            modifier = Modifier.mainContentPadding(it)
                         )
                     })
             }
@@ -82,7 +81,6 @@ class MainActivity : ComponentActivity() {
         modifier: Modifier = Modifier,
         navController: NavHostController = rememberNavController(),
         startDestination: String,
-        contentPaddingValues: PaddingValues
     ) {
         NavHost(
             navController = navController,
@@ -92,13 +90,13 @@ class MainActivity : ComponentActivity() {
 
             composable(route = TopDestinations.HomeRoute.routeName, content = {
                 HomeScreen(
-                    modifier = Modifier.mainContentPadding(contentPaddingValues),
+                    modifier = modifier,
                     navigateToNextScreen = {},
                 )
             })
 
             composable(route = TopDestinations.FavoriteRoute.routeName, content = {
-                FavoriteScreen(modifier = Modifier.mainContentPadding(contentPaddingValues))
+                FavoriteScreen(modifier = modifier)
             })
 
             // nest navigation
@@ -110,7 +108,7 @@ class MainActivity : ComponentActivity() {
                     route = SearchDestinations.TopRoute.routeName,
                     content = {
                         SearchScreen(
-                            modifier = Modifier.mainContentPadding(contentPaddingValues),
+                            modifier = modifier,
                             navigateToNextScreen = { query ->
                                 navController.navigate(SearchDestinations.ResultRoute.withArgs(query))
                             },
@@ -132,8 +130,7 @@ class MainActivity : ComponentActivity() {
                         ResultScreen(
                             navController = navController,
                             query = query,
-                            modifier = Modifier
-                                .mainContentPadding(contentPaddingValues)
+                            modifier = modifier
                         )
                     }
                 )

@@ -23,9 +23,9 @@ import java.util.*
 
 @Composable
 internal fun TodoItem(
+    modifier: Modifier = Modifier,
     todoData: TodoData,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
     MyAppSurface(
         border = BorderStroke(1.dp, Color.Green),

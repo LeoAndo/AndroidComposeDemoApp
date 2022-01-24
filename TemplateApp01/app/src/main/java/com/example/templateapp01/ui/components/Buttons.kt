@@ -11,8 +11,8 @@ import androidx.navigation.NavController
 
 @Composable
 fun NavigateBackButton(
+    modifier: Modifier = Modifier,
     navController: NavController,
-    modifier: Modifier = Modifier
 ) {
     // Use LocalLifecycleOwner.current as a proxy for the NavBackStackEntry
     // associated with this Composable
@@ -31,8 +31,8 @@ fun NavigateBackButton(
 
 @Composable
 fun NavigateBackIconButton(
+    modifier: Modifier = Modifier,
     navController: NavController,
-    modifier: Modifier = Modifier
 ) {
     if (navController.currentBackStackEntry == LocalLifecycleOwner.current &&
         navController.previousBackStackEntry != null

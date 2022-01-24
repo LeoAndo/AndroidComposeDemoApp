@@ -22,24 +22,24 @@ internal fun SearchScreen(
     var queryText by remember { mutableStateOf("") }
     var isEnableBtn by remember { mutableStateOf(false) }
     SearchContent(
-        queryText,
-        isEnableBtn,
+        modifier = modifier,
+        queryText = queryText,
+        isEnableBtn = isEnableBtn,
         navigateToNextScreen = navigateToNextScreen,
         onValueChange = {
             queryText = it
             isEnableBtn = it.isNotEmpty()
         },
-        modifier = modifier
     )
 }
 
 @Composable
 internal fun SearchContent(
+    modifier: Modifier = Modifier,
     queryText: String,
     isEnableBtn: Boolean,
     navigateToNextScreen: (String) -> Unit,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier,
@@ -83,12 +83,11 @@ fun SearchContentPreview() {
     TemplateApp01Theme {
         Surface {
             SearchContent(
+                modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),
                 "queryText",
                 true,
                 navigateToNextScreen = {},
                 onValueChange = {},
-                modifier =
-                Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
             )
         }
     }

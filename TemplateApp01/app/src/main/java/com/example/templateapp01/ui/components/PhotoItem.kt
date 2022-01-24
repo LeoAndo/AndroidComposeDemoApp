@@ -21,9 +21,9 @@ import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
 @Composable
 fun PhotoItem(
+    modifier: Modifier = Modifier,
     photo: UnSplashPhoto,
     onClick: (String) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     MyAppSurface(
         border = BorderStroke(1.dp, Color.Green),
