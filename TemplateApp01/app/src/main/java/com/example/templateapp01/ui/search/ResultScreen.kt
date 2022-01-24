@@ -16,28 +16,32 @@ import com.example.templateapp01.data.ErrorResult
 import com.example.templateapp01.model.UnSplashPhoto
 import com.example.templateapp01.ui.components.*
 import com.example.templateapp01.ui.components.FullScreenLoading
+import com.example.templateapp01.ui.extentions.mainContentPadding
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ResultScreen(
+    modifier: Modifier = Modifier,
     viewModel: SearchResultViewModel = hiltViewModel(),
     navController: NavHostController,
-    query: String
+    query: String,
 ) {
     ResultContent(
         uiState = viewModel.uiState,
         navController = navController,
-        onClickReload = { viewModel.searchPhotos(query) }
+        onClickReload = { viewModel.searchPhotos(query) },
+        modifier = modifier
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ResultContent(
+    modifier: Modifier = Modifier,
     uiState: SearchResultUiState,
     navController: NavHostController,
-    onClickReload: () -> Unit
+    onClickReload: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -52,10 +56,10 @@ internal fun ResultContent(
         }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier,
             verticalArrangement = Arrangement.Center
         ) {
-            when (val ret = uiState) {
+            when (uiState) {
                 SearchResultUiState.SearchPhotos -> {
                     onClickReload()
                 }
@@ -73,7 +77,7 @@ internal fun ResultContent(
                 }
                 is SearchResultUiState.Photos -> {
                     PhotoItem(
-                        photo = ret.results.last(),
+                        photo = uiState.results.last(),
                         onClick = {
                             Log.d("ResultScreen", "PhotoItem Clicked! id: $it")
                         },
@@ -83,7 +87,7 @@ internal fun ResultContent(
                 }
                 is SearchResultUiState.Error -> {
                     ErrorMessage(
-                        message = "fetch error." + ret.result.message,
+                        message = "fetch error." + uiState.result.message,
                         onClickReload = onClickReload,
                         modifier = Modifier
                             .fillMaxSize()
@@ -97,29 +101,48 @@ internal fun ResultContent(
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = false
+)
 @Composable
 fun ResultContent_Preview_Init() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Initial,
             navController = rememberNavController(),
-            onClickReload = {})
+            onClickReload = {},
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+        )
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = false
+)
 @Composable
 fun ResultContent_Preview_Empty() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Initial,
             navController = rememberNavController(),
-            onClickReload = {})
+            onClickReload = {},
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+        )
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = false
+)
 @Composable
 fun ResultContent_Preview_Success() {
     val photos = buildList {
@@ -145,28 +168,44 @@ fun ResultContent_Preview_Success() {
         ResultContent(
             uiState = SearchResultUiState.Photos(photos),
             navController = navController,
-            onClickReload = {})
+            onClickReload = {},
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+        )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = false
+)
 @Composable
 fun ResultContent_Preview_Loading() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Loading,
             navController = rememberNavController(),
-            onClickReload = {})
+            onClickReload = {},
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+        )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = false
+)
 @Composable
 fun ResultContent_Preview_Error() {
     TemplateApp01Theme {
         ResultContent(
             uiState = SearchResultUiState.Error(result = ErrorResult.NetworkError("error error error")),
             navController = rememberNavController(),
-            onClickReload = {})
+            onClickReload = {},
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+        )
     }
 }

@@ -14,9 +14,9 @@ import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
 @Composable
 fun ErrorMessage(
+    modifier: Modifier = Modifier,
     message: String,
     onClickReload: () -> Unit,
-    modifier: Modifier = Modifier
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

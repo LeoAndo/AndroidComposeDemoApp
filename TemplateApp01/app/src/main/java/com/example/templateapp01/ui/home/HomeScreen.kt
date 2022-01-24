@@ -9,23 +9,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.templateapp01.data.ErrorResult
 import com.example.templateapp01.ui.components.*
 import com.example.templateapp01.ui.components.FullScreenLoading
+import com.example.templateapp01.ui.extentions.mainContentPadding
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
 // Stateful Composable that depends on ViewModel.
 @Composable
 internal fun HomeScreen(
+    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateToNextScreen: (String) -> Unit
+    navigateToNextScreen: (String) -> Unit,
 ) {
     HomeContent(
         uiState = viewModel.uiState,
         onClickReload = { viewModel.searchPhotos() },
-        onClickPhotoItem = navigateToNextScreen
+        onClickPhotoItem = navigateToNextScreen,
+        modifier = modifier
     )
 }
 
@@ -34,17 +38,16 @@ internal fun HomeScreen(
 internal fun HomeContent(
     uiState: HomeUiState,
     onClickReload: () -> Unit,
-    onClickPhotoItem: (String) -> Unit
+    onClickPhotoItem: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
+        modifier = modifier,
     ) {
-        when (val ret = uiState) {
+        when (uiState) {
             is HomeUiState.Error -> {
                 ErrorMessage(
-                    message = "fetch error: ${ret.error.message}",
+                    message = "fetch error: ${uiState.error.message}",
                     onClickReload = onClickReload,
                     modifier = Modifier
                         .fillMaxSize()
@@ -65,11 +68,9 @@ internal fun HomeContent(
             }
             is HomeUiState.Photos -> {
                 LazyRow(
-                    // modifier = modifier,
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    // contentPadding = PaddingValues(start = 24.dp, end = 24.dp),
                 ) {
-                    itemsIndexed(ret.results) { index, photo ->
+                    itemsIndexed(uiState.results) { index, photo ->
                         PhotoItem(
                             photo = photo,
                             onClick = {
@@ -86,21 +87,38 @@ internal fun HomeContent(
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = true
+)
 @Composable
 fun HomeContent_Preview_Loading() {
     TemplateApp01Theme {
-        HomeContent(uiState = HomeUiState.Loading, onClickReload = { }, onClickPhotoItem = {})
+        HomeContent(
+            uiState = HomeUiState.Loading,
+            onClickReload = { },
+            onClickPhotoItem = {},
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+        )
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = true
+)
 @Composable
 fun HomeContent_Preview_Error() {
     TemplateApp01Theme {
         HomeContent(
             uiState = HomeUiState.Error(error = ErrorResult.NetworkError("error error...")),
             onClickReload = { },
-            onClickPhotoItem = {})
+            onClickPhotoItem = {},
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+        )
     }
 }

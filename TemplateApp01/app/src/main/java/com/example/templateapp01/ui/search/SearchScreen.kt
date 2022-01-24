@@ -11,35 +11,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.templateapp01.ui.extentions.mainContentPadding
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
 @Composable
 internal fun SearchScreen(
-    navigateToNextScreen: (String) -> Unit
+    modifier: Modifier = Modifier,
+    navigateToNextScreen: (String) -> Unit,
 ) {
     var queryText by remember { mutableStateOf("") }
     var isEnableBtn by remember { mutableStateOf(false) }
     SearchContent(
-        queryText,
-        isEnableBtn,
+        modifier = modifier,
+        queryText = queryText,
+        isEnableBtn = isEnableBtn,
         navigateToNextScreen = navigateToNextScreen,
         onValueChange = {
             queryText = it
             isEnableBtn = it.isNotEmpty()
-        })
+        },
+    )
 }
 
 @Composable
 internal fun SearchContent(
+    modifier: Modifier = Modifier,
     queryText: String,
     isEnableBtn: Boolean,
     navigateToNextScreen: (String) -> Unit,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center
     ) {
 
@@ -61,16 +64,31 @@ internal fun SearchContent(
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, device = Devices.PIXEL_4)
+@Preview(
+    name = "default",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    device = Devices.PIXEL_4,
+    showSystemUi = true
+)
+@Preview(
+    name = "dark mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    device = Devices.PIXEL_4,
+    showSystemUi = true
+)
 @Composable
-fun SearchContent() {
+fun SearchContentPreview() {
     TemplateApp01Theme {
         Surface {
             SearchContent(
+                modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),
                 "queryText",
                 true,
                 navigateToNextScreen = {},
-                onValueChange = {})
+                onValueChange = {},
+            )
         }
     }
 }
