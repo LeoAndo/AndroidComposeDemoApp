@@ -14,7 +14,8 @@ import org.junit.runners.MethodSorters
 
 @HiltAndroidTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class ResultScreenTest {
+class SearchScreenTest {
+
     // TODO: WORK AROUND
     companion object {
         private const val TAG_FIELD_QUERY = "tag_text_field"
@@ -32,21 +33,42 @@ class ResultScreenTest {
     fun setUp() {
         hiltRule.inject()
         composeTestRule.setContent { MyAppContent() }
+        // navigate to Search Screen.
+        composeTestRule.onNodeWithText("Search").performClick()
+    }
 
-        // navigate to ResultScreen.
+    @Test
+    fun input_query_enabled_button() {
         with(composeTestRule) {
-            composeTestRule.onNodeWithText("Search").performClick()
             onNodeWithTag(TAG_FIELD_QUERY).performTextInput("dogs")
-            onNodeWithText(BUTTON_TEXT).performClick()
+            onNodeWithText(BUTTON_TEXT).assertIsEnabled()
+            saveScreenshot(
+                fileNamePrefix = "input_query_enabled_button",
+                node = onRoot()
+            )
         }
     }
 
     @Test
-    fun result_screen_state_init() {
+    fun navigate_result_screen() {
         with(composeTestRule) {
-            composeTestRule.onNodeWithText(RESULT_SCREEN_TEXT).assertIsDisplayed()
+            onNodeWithTag(TAG_FIELD_QUERY).performTextInput("dogs")
+            onNodeWithText(BUTTON_TEXT).performClick()
+            onNodeWithText(RESULT_SCREEN_TEXT).assertIsDisplayed()
             saveScreenshot(
-                fileNamePrefix = "result_screen_state_init",
+                fileNamePrefix = "navigate_result_screen",
+                node = onRoot()
+            )
+        }
+    }
+
+    @Test
+    fun empty_input_query_enabled_button() {
+        with(composeTestRule) {
+            onNodeWithTag(TAG_FIELD_QUERY).performTextInput("")
+            onNodeWithText(BUTTON_TEXT).assertIsNotEnabled()
+            saveScreenshot(
+                fileNamePrefix = "empty_input_query_enabled_button",
                 node = onRoot()
             )
         }
