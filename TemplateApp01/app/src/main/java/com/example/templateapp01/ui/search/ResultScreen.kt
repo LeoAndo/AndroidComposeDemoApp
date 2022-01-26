@@ -3,8 +3,13 @@ package com.example.templateapp01.ui.search
 import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,13 +31,27 @@ internal fun ResultScreen(
     viewModel: SearchResultViewModel = hiltViewModel(),
     navController: NavHostController,
     query: String,
+    scaffoldState: ScaffoldState = rememberScaffoldState(),
 ) {
-    ResultContent(
-        uiState = viewModel.uiState,
-        navController = navController,
-        onClickReload = { viewModel.searchPhotos(query) },
-        modifier = modifier
-    )
+    // show SnackBar.
+    var errorMessage: String? by remember { mutableStateOf(null) }
+    LaunchedEffect(key1 = errorMessage, block = {
+        Log.d("ResultContent", "LaunchedEffect: $errorMessage")
+        errorMessage?.let { scaffoldState.snackbarHostState.showSnackbar(it) }
+    })
+
+    // TODO: refactor material3
+    androidx.compose.material.Scaffold(
+        scaffoldState = scaffoldState
+    ) {
+        ResultContent(
+            uiState = viewModel.uiState,
+            navController = navController,
+            onClickReload = { viewModel.searchPhotos(query) },
+            modifier = modifier,
+            onError = { errorMessage = it }
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +61,9 @@ internal fun ResultContent(
     uiState: SearchResultUiState,
     navController: NavHostController,
     onClickReload: () -> Unit,
+    onError: (String) -> Unit,
 ) {
+    Log.d("ResultContent", "uiState: $uiState")
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -93,6 +114,7 @@ internal fun ResultContent(
                             .fillMaxSize()
                             .wrapContentSize()
                     )
+                    onError(uiState.result.message ?: "error.")
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
@@ -114,7 +136,8 @@ fun ResultContent_Preview_Init() {
             uiState = SearchResultUiState.Initial,
             navController = rememberNavController(),
             onClickReload = {},
-            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),
+            onError = { },
         )
     }
 }
@@ -132,7 +155,8 @@ fun ResultContent_Preview_Empty() {
             uiState = SearchResultUiState.Initial,
             navController = rememberNavController(),
             onClickReload = {},
-            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),
+            onError = { },
         )
     }
 }
@@ -169,7 +193,8 @@ fun ResultContent_Preview_Success() {
             uiState = SearchResultUiState.Photos(photos),
             navController = navController,
             onClickReload = {},
-            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),
+            onError = { },
         )
     }
 }
@@ -187,7 +212,8 @@ fun ResultContent_Preview_Loading() {
             uiState = SearchResultUiState.Loading,
             navController = rememberNavController(),
             onClickReload = {},
-            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),
+            onError = { },
         )
     }
 }
@@ -205,7 +231,8 @@ fun ResultContent_Preview_Error() {
             uiState = SearchResultUiState.Error(result = ErrorResult.NetworkError("error error error")),
             navController = rememberNavController(),
             onClickReload = {},
-            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))
+            modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),
+            onError = { },
         )
     }
 }
