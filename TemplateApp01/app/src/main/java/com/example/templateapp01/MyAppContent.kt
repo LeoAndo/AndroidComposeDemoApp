@@ -116,7 +116,7 @@ private fun MyAppNavigationGraph(
                     ResultScreen(
                         navController = navController,
                         query = query,
-                        modifier = modifier
+                        modifier = modifier,
                     )
                 }
             )
