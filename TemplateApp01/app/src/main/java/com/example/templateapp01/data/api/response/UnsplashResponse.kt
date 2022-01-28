@@ -1,6 +1,6 @@
 package com.example.templateapp01.data.api.response
 
-import com.example.templateapp01.model.UnSplashPhoto
+import com.example.templateapp01.domain.model.UnSplashPhoto
 import com.squareup.moshi.Json
 
 internal data class UnsplashResponse(

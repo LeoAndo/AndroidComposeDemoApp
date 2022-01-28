@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.domain.model.TodoData
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 import java.util.*
 

@@ -18,7 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.templateapp01.data.ErrorResult
-import com.example.templateapp01.model.UnSplashPhoto
+import com.example.templateapp01.domain.model.UnSplashPhoto
 import com.example.templateapp01.ui.components.*
 import com.example.templateapp01.ui.components.FullScreenLoading
 import com.example.templateapp01.ui.extentions.mainContentPadding

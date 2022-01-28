@@ -3,8 +3,8 @@ package com.example.templateapp01.ui.search
 import com.example.templateapp01.CoroutinesTestRule
 import com.example.templateapp01.data.ErrorResult
 import com.example.templateapp01.data.SafeResult
-import com.example.templateapp01.data.repository.UnsplashRepository
-import com.example.templateapp01.model.UnSplashPhoto
+import com.example.templateapp01.domain.repository.UnsplashRepository
+import com.example.templateapp01.domain.model.UnSplashPhoto
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi

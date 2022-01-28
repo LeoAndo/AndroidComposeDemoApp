@@ -2,7 +2,7 @@ package com.example.templateapp01.data.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.domain.model.TodoData
 import java.util.*
 
 internal const val TABLE_NAME_TODO = "todo"

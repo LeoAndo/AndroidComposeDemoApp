@@ -1,4 +1,4 @@
-package com.example.templateapp01.model
+package com.example.templateapp01.domain.model
 
 import java.io.Serializable
 

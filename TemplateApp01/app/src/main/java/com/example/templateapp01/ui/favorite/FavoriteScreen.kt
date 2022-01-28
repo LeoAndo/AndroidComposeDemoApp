@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.templateapp01.R
-import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.domain.model.TodoData
 import com.example.templateapp01.ui.components.AppAlertDialog
 import com.example.templateapp01.ui.components.TodoItem
 import com.example.templateapp01.ui.theme.TemplateApp01Theme

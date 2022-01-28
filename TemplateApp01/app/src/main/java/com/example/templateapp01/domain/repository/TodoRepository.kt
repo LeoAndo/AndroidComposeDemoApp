@@ -1,7 +1,7 @@
-package com.example.templateapp01.data.repository
+package com.example.templateapp01.domain.repository
 
 import com.example.templateapp01.data.SafeResult
-import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.domain.model.TodoData
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 

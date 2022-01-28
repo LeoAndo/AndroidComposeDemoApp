@@ -2,7 +2,7 @@ package com.example.templateapp01.domain.usecase
 
 import android.util.Log
 import com.example.templateapp01.data.SafeResult
-import com.example.templateapp01.data.repository.TodoRepository
+import com.example.templateapp01.domain.repository.TodoRepository
 import com.example.templateapp01.di.DefaultDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
