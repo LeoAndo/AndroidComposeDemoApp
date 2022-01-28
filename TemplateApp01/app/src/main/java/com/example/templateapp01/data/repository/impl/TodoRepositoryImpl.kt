@@ -1,14 +1,14 @@
 package com.example.templateapp01.data.repository.impl
 
 import com.example.templateapp01.data.SafeResult
-import com.example.templateapp01.data.repository.TodoRepository
+import com.example.templateapp01.domain.repository.TodoRepository
 import com.example.templateapp01.data.room.dao.TodoDao
 import com.example.templateapp01.data.room.entity.TodoEntity
 import com.example.templateapp01.data.room.entity.toTodoData
 import com.example.templateapp01.data.room.entity.toTodoDataList
 import com.example.templateapp01.data.safeCall
 import com.example.templateapp01.di.IoDispatcher
-import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.domain.model.TodoData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import com.example.templateapp01.data.repository.UnsplashRepository
+import com.example.templateapp01.domain.repository.UnsplashRepository
 
 @HiltViewModel
 internal class HomeViewModel @Inject constructor(

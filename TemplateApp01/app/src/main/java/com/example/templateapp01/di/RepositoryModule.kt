@@ -1,7 +1,7 @@
 package com.example.templateapp01.di
 
-import com.example.templateapp01.data.repository.TodoRepository
-import com.example.templateapp01.data.repository.UnsplashRepository
+import com.example.templateapp01.domain.repository.TodoRepository
+import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.data.repository.impl.TodoRepositoryImpl
 import com.example.templateapp01.data.repository.impl.UnsplashRepositoryImpl
 import dagger.Binds

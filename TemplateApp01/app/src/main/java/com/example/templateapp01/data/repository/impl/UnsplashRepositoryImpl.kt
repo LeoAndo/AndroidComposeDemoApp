@@ -2,11 +2,11 @@ package com.example.templateapp01.data.repository.impl
 
 import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.data.api.UnsplashService
-import com.example.templateapp01.data.repository.UnsplashRepository
+import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.data.api.response.toModel
 import com.example.templateapp01.data.safeCall
 import com.example.templateapp01.di.IoDispatcher
-import com.example.templateapp01.model.UnSplashPhoto
+import com.example.templateapp01.domain.model.UnSplashPhoto
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 

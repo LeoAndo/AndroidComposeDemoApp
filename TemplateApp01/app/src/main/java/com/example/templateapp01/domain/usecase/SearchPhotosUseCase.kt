@@ -1,9 +1,9 @@
 package com.example.templateapp01.domain.usecase
 
 import com.example.templateapp01.data.SafeResult
-import com.example.templateapp01.data.repository.UnsplashRepository
+import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.di.DefaultDispatcher
-import com.example.templateapp01.model.UnSplashPhoto
+import com.example.templateapp01.domain.model.UnSplashPhoto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

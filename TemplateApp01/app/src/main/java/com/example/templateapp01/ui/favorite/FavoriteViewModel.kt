@@ -6,9 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.templateapp01.data.repository.TodoRepository
+import com.example.templateapp01.domain.repository.TodoRepository
 import com.example.templateapp01.domain.usecase.TodoDoneUseCase
-import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.domain.model.TodoData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect

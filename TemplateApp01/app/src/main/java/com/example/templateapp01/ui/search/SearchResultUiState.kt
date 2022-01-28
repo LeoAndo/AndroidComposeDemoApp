@@ -1,7 +1,7 @@
 package com.example.templateapp01.ui.search
 
 import com.example.templateapp01.data.ErrorResult
-import com.example.templateapp01.model.UnSplashPhoto
+import com.example.templateapp01.domain.model.UnSplashPhoto
 
 internal sealed interface SearchResultUiState {
     object Initial : SearchResultUiState

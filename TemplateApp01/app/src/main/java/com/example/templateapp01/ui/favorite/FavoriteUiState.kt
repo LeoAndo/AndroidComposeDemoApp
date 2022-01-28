@@ -1,6 +1,6 @@
 package com.example.templateapp01.ui.favorite
 
-import com.example.templateapp01.model.TodoData
+import com.example.templateapp01.domain.model.TodoData
 
 internal sealed interface FavoriteUiState {
     object Initial : FavoriteUiState
