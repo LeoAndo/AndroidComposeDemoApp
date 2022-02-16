@@ -2,7 +2,6 @@ package com.example.templateapp01.data
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.lang.Exception
@@ -36,8 +35,18 @@ internal sealed class ErrorResult : Exception() {
         ErrorResult()
 }
 
-internal fun <T> SafeResult<T>.successOr(fallback: T): T {
-    return (this as? SafeResult.Success<T>)?.data ?: fallback
+internal inline fun <T> SafeResult<T>.fold(
+    onSuccess: (value: T) -> Unit,
+    onFailure: (ErrorResult) -> Unit,
+): SafeResult<T> {
+    val success = this as? SafeResult.Success
+    val failure = this as? SafeResult.Error
+    success?.let { onSuccess(success.data) }
+    failure?.let {
+        onFailure(failure.errorResult)
+        Log.e("fold", "error: " + failure.errorResult.localizedMessage)
+    }
+    return this
 }
 
 internal suspend fun <T> safeCall(
@@ -49,7 +58,7 @@ internal suspend fun <T> safeCall(
         try {
             SafeResult.Success(apiCall.invoke())
         } catch (e: Throwable) {
-            Log.d("safeCall", "error: " + e.localizedMessage)
+            Log.e("safeCall", "error: " + e.localizedMessage)
             when (e) {
                 is HttpException -> {
                     when (e.code()) {
@@ -96,43 +105,6 @@ internal suspend fun <T> safeCall(
                             e.localizedMessage
                         )
                     )
-                }
-            }
-        }
-    }
-}
-
-internal suspend fun <T> apiCall(
-    dispatcher: CoroutineDispatcher,
-    apiCall: suspend () -> T
-): T {
-    return withContext(dispatcher) {
-        Log.w("apiCall", "currentThread: " + Thread.currentThread().name)
-        try {
-            apiCall.invoke()
-        } catch (e: Throwable) {
-            when (e) {
-                is HttpException -> {
-                    when (e.code()) {
-                        HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                            throw ErrorResult.UnAuthorizedError(e.localizedMessage)
-                        }
-                        HttpURLConnection.HTTP_BAD_REQUEST -> {
-                            throw ErrorResult.BadRequestError(e.localizedMessage)
-                        }
-                        HttpURLConnection.HTTP_NOT_FOUND -> {
-                            throw ErrorResult.NotFoundError(e.localizedMessage)
-                        }
-                        else -> {
-                            throw ErrorResult.OtherError(e.localizedMessage)
-                        }
-                    }
-                }
-                is UnknownHostException, is ConnectException, is SocketTimeoutException -> {
-                    throw ErrorResult.NetworkError(e.localizedMessage)
-                }
-                else -> {
-                    throw ErrorResult.OtherError(e.localizedMessage)
                 }
             }
         }
