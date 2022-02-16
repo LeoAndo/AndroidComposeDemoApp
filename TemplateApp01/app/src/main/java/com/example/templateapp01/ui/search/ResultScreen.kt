@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.templateapp01.data.ErrorResult
+import com.example.templateapp01.data.FailureResult
 import com.example.templateapp01.domain.model.UnSplashPhoto
 import com.example.templateapp01.ui.components.*
 import com.example.templateapp01.ui.components.FullScreenLoading
@@ -228,7 +228,7 @@ fun ResultContent_Preview_Loading() {
 fun ResultContent_Preview_Error() {
     TemplateApp01Theme {
         ResultContent(
-            uiState = SearchResultUiState.Error(result = ErrorResult.NetworkError("error error error")),
+            uiState = SearchResultUiState.Error(result = FailureResult.NetworkFailure("error error error")),
             navController = rememberNavController(),
             onClickReload = {},
             modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),

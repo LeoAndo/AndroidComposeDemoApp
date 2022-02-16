@@ -1,7 +1,7 @@
 package com.example.templateapp01.ui.home
 
 import com.example.templateapp01.CoroutinesTestRule
-import com.example.templateapp01.data.ErrorResult
+import com.example.templateapp01.data.FailureResult
 import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.domain.model.UnSplashPhoto
@@ -77,7 +77,7 @@ class HomeViewModelTest {
     fun `failure search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
 
-            val retValue = SafeResult.Error(ErrorResult.NetworkError("error!"))
+            val retValue = SafeResult.Failure(FailureResult.NetworkFailure("error!"))
 
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
 

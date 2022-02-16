@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.templateapp01.data.ErrorResult
+import com.example.templateapp01.data.FailureResult
 import com.example.templateapp01.ui.components.*
 import com.example.templateapp01.ui.components.FullScreenLoading
 import com.example.templateapp01.ui.extentions.mainContentPadding
@@ -114,7 +114,7 @@ fun HomeContent_Preview_Loading() {
 fun HomeContent_Preview_Error() {
     TemplateApp01Theme {
         HomeContent(
-            uiState = HomeUiState.Error(error = ErrorResult.NetworkError("error error...")),
+            uiState = HomeUiState.Error(error = FailureResult.NetworkFailure("error error...")),
             onClickReload = { },
             onClickPhotoItem = {},
             modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))

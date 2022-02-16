@@ -15,36 +15,36 @@ import java.net.UnknownHostException
  */
 internal sealed class SafeResult<out R> {
     data class Success<out T>(val data: T) : SafeResult<T>()
-    data class Error(val errorResult: ErrorResult) : SafeResult<Nothing>()
+    data class Failure(val failureResult: FailureResult) : SafeResult<Nothing>()
 }
 
-internal sealed class ErrorResult : Exception() {
-    data class UnAuthorizedError(override val message: String? = "UnAuthorizedError") :
-        ErrorResult()
+internal sealed class FailureResult : Exception() {
+    data class UnAuthorizedFailure(override val message: String? = "UnAuthorizedError") :
+        FailureResult()
 
-    data class BadRequestError(override val message: String? = "BadRequestError") :
-        ErrorResult()
+    data class BadRequestFailure(override val message: String? = "BadRequestError") :
+        FailureResult()
 
-    data class NotFoundError(override val message: String? = "NotFoundError") :
-        ErrorResult()
+    data class NotFoundFailure(override val message: String? = "NotFoundError") :
+        FailureResult()
 
-    data class NetworkError(override val message: String? = "NetworkError") :
-        ErrorResult()
+    data class NetworkFailure(override val message: String? = "NetworkError") :
+        FailureResult()
 
-    data class OtherError(override val message: String? = "OtherError") :
-        ErrorResult()
+    data class OtherFailure(override val message: String? = "OtherError") :
+        FailureResult()
 }
 
 internal inline fun <T> SafeResult<T>.fold(
     onSuccess: (value: T) -> Unit,
-    onFailure: (ErrorResult) -> Unit,
+    onFailure: (FailureResult) -> Unit,
 ): SafeResult<T> {
     val success = this as? SafeResult.Success
-    val failure = this as? SafeResult.Error
+    val failure = this as? SafeResult.Failure
     success?.let { onSuccess(success.data) }
     failure?.let {
-        onFailure(failure.errorResult)
-        Log.e("fold", "error: " + failure.errorResult.localizedMessage)
+        onFailure(failure.failureResult)
+        Log.e("fold", "error: " + failure.failureResult.localizedMessage)
     }
     return this
 }
@@ -63,29 +63,29 @@ internal suspend fun <T> safeCall(
                 is HttpException -> {
                     when (e.code()) {
                         HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                            SafeResult.Error(
-                                ErrorResult.UnAuthorizedError(
+                            SafeResult.Failure(
+                                FailureResult.UnAuthorizedFailure(
                                     e.localizedMessage
                                 )
                             )
                         }
                         HttpURLConnection.HTTP_BAD_REQUEST -> {
-                            SafeResult.Error(
-                                ErrorResult.BadRequestError(
+                            SafeResult.Failure(
+                                FailureResult.BadRequestFailure(
                                     e.localizedMessage
                                 )
                             )
                         }
                         HttpURLConnection.HTTP_NOT_FOUND -> {
-                            SafeResult.Error(
-                                ErrorResult.NotFoundError(
+                            SafeResult.Failure(
+                                FailureResult.NotFoundFailure(
                                     e.localizedMessage
                                 )
                             )
                         }
                         else -> {
-                            SafeResult.Error(
-                                ErrorResult.OtherError(
+                            SafeResult.Failure(
+                                FailureResult.OtherFailure(
                                     e.localizedMessage
                                 )
                             )
@@ -93,15 +93,15 @@ internal suspend fun <T> safeCall(
                     }
                 }
                 is UnknownHostException, is ConnectException, is SocketTimeoutException -> {
-                    SafeResult.Error(
-                        ErrorResult.NetworkError(
+                    SafeResult.Failure(
+                        FailureResult.NetworkFailure(
                             e.localizedMessage
                         )
                     )
                 }
                 else -> {
-                    SafeResult.Error(
-                        ErrorResult.OtherError(
+                    SafeResult.Failure(
+                        FailureResult.OtherFailure(
                             e.localizedMessage
                         )
                     )

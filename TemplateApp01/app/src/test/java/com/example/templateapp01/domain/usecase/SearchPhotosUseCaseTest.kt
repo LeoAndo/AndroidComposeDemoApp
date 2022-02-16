@@ -1,7 +1,7 @@
 package com.example.templateapp01.domain.usecase
 
 import com.example.templateapp01.CoroutinesTestRule
-import com.example.templateapp01.data.ErrorResult
+import com.example.templateapp01.data.FailureResult
 import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.domain.model.UnSplashPhoto
@@ -59,7 +59,7 @@ class SearchPhotosUseCaseTest {
             }
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
             when (searchPhotosUseCase(query = "dogs")) {
-                is SafeResult.Error -> assert(false)
+                is SafeResult.Failure -> assert(false)
                 is SafeResult.Success -> assert(true)
             }
         }
@@ -74,7 +74,7 @@ class SearchPhotosUseCaseTest {
 
             searchPhotosUseCase(query = "dogs")
             when (val ret = searchPhotosUseCase(query = "dogs")) {
-                is SafeResult.Error -> assert(false)
+                is SafeResult.Failure -> assert(false)
                 is SafeResult.Success -> {
                     assert(ret.data.isEmpty())
                 }
@@ -86,13 +86,13 @@ class SearchPhotosUseCaseTest {
     fun `failure search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
 
-            val retValue = SafeResult.Error(ErrorResult.NetworkError("error!"))
+            val retValue = SafeResult.Failure(FailureResult.NetworkFailure("error!"))
 
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
 
             searchPhotosUseCase(query = "dogs")
             when (searchPhotosUseCase(query = "dogs")) {
-                is SafeResult.Error -> assert(true)
+                is SafeResult.Failure -> assert(true)
                 is SafeResult.Success -> assert(false)
             }
         }
