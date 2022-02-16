@@ -29,13 +29,12 @@ templates for jetpack compose.
 - domain layer
   - Pure Kotlin.
   - [Threading](https://developer.android.com/jetpack/guide/domain-layer#threading)
-  - DO inject Dispatchers
+  - DO inject Dispatchers  (Default Thread)
 - data layer
-  - Specify the Dispatcher.
   - Model(Serialize).
-  - throws an Exception individually.
+  - Error handling and returning a custom Exception instance ([Does not Use kotlin.Result](https://github.com/LeoAndo/android-compose-templates/pull/45))
   - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
-  - DO inject Dispatchers
+  - DO inject Dispatchers (IO Thread)
 - Proguard / R8
   - [Use only stable libraries](https://github.com/LeoAndo/AndroidAppTemplate/issues/40#issue-925121453)
 
