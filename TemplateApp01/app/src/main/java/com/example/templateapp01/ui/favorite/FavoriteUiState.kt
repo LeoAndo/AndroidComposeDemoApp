@@ -5,5 +5,5 @@ import com.example.templateapp01.domain.model.TodoData
 internal sealed interface FavoriteUiState {
     object Initial : FavoriteUiState
     data class UpdateTodoList(val todoList: List<TodoData>) : FavoriteUiState
-    data class Error(val errorMessage: String) : FavoriteUiState
+    data class Failure(val errorMessage: String) : FavoriteUiState
 }

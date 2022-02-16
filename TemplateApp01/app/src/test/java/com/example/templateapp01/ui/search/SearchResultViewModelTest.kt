@@ -2,7 +2,6 @@ package com.example.templateapp01.ui.search
 
 import com.example.templateapp01.CoroutinesTestRule
 import com.example.templateapp01.data.FailureResult
-import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.domain.model.UnSplashPhoto
 import com.nhaarman.mockitokotlin2.doReturn
@@ -38,7 +37,7 @@ class SearchResultViewModelTest {
     fun `successful search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
 
-            val retValue: SafeResult<List<UnSplashPhoto>> = buildList {
+            val retValue: Result<List<UnSplashPhoto>> = buildList {
                 repeat(3) { id ->
                     add(
                         UnSplashPhoto(
@@ -53,7 +52,7 @@ class SearchResultViewModelTest {
                     )
                 }
             }.let {
-                SafeResult.Success(it)
+                Result.success(it)
             }
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
 
@@ -66,7 +65,7 @@ class SearchResultViewModelTest {
     fun `empty search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
 
-            val retValue: SafeResult<List<UnSplashPhoto>> = SafeResult.Success(emptyList())
+            val retValue: Result<List<UnSplashPhoto>> = Result.success(emptyList())
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
 
             searchResultViewModel.searchPhotos(query = "dogs")
@@ -78,12 +77,12 @@ class SearchResultViewModelTest {
     fun `failure search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
 
-            val retValue = SafeResult.Failure(FailureResult.NetworkFailure("error!"))
+            val retValue = Result.failure<FailureResult>(FailureResult.Network("error!"))
 
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
 
             searchResultViewModel.searchPhotos(query = "dogs")
-            assert(searchResultViewModel.uiState is SearchResultUiState.Error)
+            assert(searchResultViewModel.uiState is SearchResultUiState.Failure)
         }
     }
 }

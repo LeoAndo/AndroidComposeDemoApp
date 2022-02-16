@@ -26,7 +26,7 @@ internal class FavoriteViewModel @Inject constructor(
         Log.d(LOG_TAG, "init: " + hashCode())
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             // Failure
-            uiState = FavoriteUiState.Error(throwable.localizedMessage ?: "error!")
+            uiState = FavoriteUiState.Failure(throwable.localizedMessage ?: "error!")
         }) {
             todoRepository.getTodoList().collect {
                 uiState = FavoriteUiState.UpdateTodoList(it)

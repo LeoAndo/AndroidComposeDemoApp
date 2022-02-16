@@ -13,28 +13,30 @@ import java.net.UnknownHostException
 /**
  * A generic class that holds a value or an exception
  */
+@Deprecated(message = "use kotlin.Result", replaceWith = ReplaceWith("Result", "kotlin.Result"))
 internal sealed class SafeResult<out R> {
     data class Success<out T>(val data: T) : SafeResult<T>()
     data class Failure(val failureResult: FailureResult) : SafeResult<Nothing>()
 }
 
 internal sealed class FailureResult : Exception() {
-    data class UnAuthorizedFailure(override val message: String? = "UnAuthorizedError") :
+    data class UnAuthorized(override val message: String? = "UnAuthorizedError") :
         FailureResult()
 
-    data class BadRequestFailure(override val message: String? = "BadRequestError") :
+    data class BadRequest(override val message: String? = "BadRequestError") :
         FailureResult()
 
-    data class NotFoundFailure(override val message: String? = "NotFoundError") :
+    data class NotFound(override val message: String? = "NotFoundError") :
         FailureResult()
 
-    data class NetworkFailure(override val message: String? = "NetworkError") :
+    data class Network(override val message: String? = "NetworkError") :
         FailureResult()
 
-    data class OtherFailure(override val message: String? = "OtherError") :
+    data class Unknown(override val message: String? = "UnknownError") :
         FailureResult()
 }
 
+@Deprecated("use kotlin.Result.fold", replaceWith = ReplaceWith("fold", "kotlin.Result"))
 internal inline fun <T> SafeResult<T>.fold(
     onSuccess: (value: T) -> Unit,
     onFailure: (FailureResult) -> Unit,
@@ -52,40 +54,40 @@ internal inline fun <T> SafeResult<T>.fold(
 internal suspend fun <T> safeCall(
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
-): SafeResult<T> {
+): Result<T> {
     return withContext(dispatcher) {
         Log.d("safeCall", "currentThread: " + Thread.currentThread().name)
         try {
-            SafeResult.Success(apiCall.invoke())
+            Result.success(apiCall.invoke())
         } catch (e: Throwable) {
             Log.e("safeCall", "error: " + e.localizedMessage)
             when (e) {
                 is HttpException -> {
                     when (e.code()) {
                         HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                            SafeResult.Failure(
-                                FailureResult.UnAuthorizedFailure(
+                            Result.failure(
+                                FailureResult.UnAuthorized(
                                     e.localizedMessage
                                 )
                             )
                         }
                         HttpURLConnection.HTTP_BAD_REQUEST -> {
-                            SafeResult.Failure(
-                                FailureResult.BadRequestFailure(
+                            Result.failure(
+                                FailureResult.BadRequest(
                                     e.localizedMessage
                                 )
                             )
                         }
                         HttpURLConnection.HTTP_NOT_FOUND -> {
-                            SafeResult.Failure(
-                                FailureResult.NotFoundFailure(
+                            Result.failure(
+                                FailureResult.NotFound(
                                     e.localizedMessage
                                 )
                             )
                         }
                         else -> {
-                            SafeResult.Failure(
-                                FailureResult.OtherFailure(
+                            Result.failure(
+                                FailureResult.Unknown(
                                     e.localizedMessage
                                 )
                             )
@@ -93,15 +95,15 @@ internal suspend fun <T> safeCall(
                     }
                 }
                 is UnknownHostException, is ConnectException, is SocketTimeoutException -> {
-                    SafeResult.Failure(
-                        FailureResult.NetworkFailure(
+                    Result.failure(
+                        FailureResult.Network(
                             e.localizedMessage
                         )
                     )
                 }
                 else -> {
-                    SafeResult.Failure(
-                        FailureResult.OtherFailure(
+                    Result.failure(
+                        FailureResult.Unknown(
                             e.localizedMessage
                         )
                     )

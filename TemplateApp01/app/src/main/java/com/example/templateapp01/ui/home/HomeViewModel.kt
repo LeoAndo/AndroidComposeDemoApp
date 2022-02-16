@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.templateapp01.data.FailureResult
-import com.example.templateapp01.data.SafeResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -30,23 +28,17 @@ internal class HomeViewModel @Inject constructor(
         uiState = HomeUiState.Loading // start loading.
 
         viewModelScope.launch {
-            when (val ret = repository.searchPhotos("dogs")) {
-                is SafeResult.Success -> {
-                    uiState = if (ret.data.isEmpty()) {
+            repository.searchPhotos("dogs").fold(
+                onSuccess = { data ->
+                    uiState = if (data.isEmpty()) {
                         HomeUiState.NoPhotos // stop loading.
                     } else {
-                        HomeUiState.Photos(results = ret.data) // stop loading.
+                        HomeUiState.Photos(results = data) // stop loading.
                     }
+                }, onFailure = {
+                    uiState = HomeUiState.Failure(it) // stop loading.
                 }
-                is SafeResult.Failure -> {
-                    when (ret.failureResult) {
-                        is FailureResult.BadRequestFailure, is FailureResult.NetworkFailure,
-                        is FailureResult.NotFoundFailure, is FailureResult.OtherFailure, is FailureResult.UnAuthorizedFailure -> {
-                            uiState = HomeUiState.Error(ret.failureResult) // stop loading.
-                        }
-                    }
-                }
-            }
+            )
         }
     }
 

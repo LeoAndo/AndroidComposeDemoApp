@@ -1,6 +1,5 @@
 package com.example.templateapp01.domain.usecase
 
-import com.example.templateapp01.data.fold
 import com.example.templateapp01.domain.repository.TodoRepository
 import com.example.templateapp01.di.DefaultDispatcher
 import kotlinx.coroutines.CoroutineDispatcher

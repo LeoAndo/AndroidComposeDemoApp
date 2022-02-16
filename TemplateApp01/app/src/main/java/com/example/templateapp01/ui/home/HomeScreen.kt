@@ -44,9 +44,9 @@ internal fun HomeContent(
         modifier = modifier,
     ) {
         when (uiState) {
-            is HomeUiState.Error -> {
+            is HomeUiState.Failure -> {
                 ErrorMessage(
-                    message = "fetch error: ${uiState.error.message}",
+                    message = "fetch error: ${uiState.error.localizedMessage}",
                     onClickReload = onClickReload,
                     modifier = Modifier
                         .fillMaxSize()
@@ -114,7 +114,7 @@ fun HomeContent_Preview_Loading() {
 fun HomeContent_Preview_Error() {
     TemplateApp01Theme {
         HomeContent(
-            uiState = HomeUiState.Error(error = FailureResult.NetworkFailure("error error...")),
+            uiState = HomeUiState.Failure(error = FailureResult.Network("error error...")),
             onClickReload = { },
             onClickPhotoItem = {},
             modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp))

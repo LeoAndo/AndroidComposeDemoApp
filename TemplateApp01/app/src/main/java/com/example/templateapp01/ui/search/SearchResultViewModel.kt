@@ -6,8 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.templateapp01.data.FailureResult
-import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.domain.repository.UnsplashRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,23 +29,17 @@ internal class SearchResultViewModel @Inject constructor(
         uiState = SearchResultUiState.Loading // start loading.
 
         viewModelScope.launch {
-            when (val ret = repository.searchPhotos(query)) {
-                is SafeResult.Success -> {
-                    uiState = if (ret.data.isEmpty()) {
+            repository.searchPhotos(query).fold(
+                onSuccess = { data ->
+                    uiState = if (data.isEmpty()) {
                         SearchResultUiState.NoPhotos
                     } else {
-                        SearchResultUiState.Photos(results = ret.data)
+                        SearchResultUiState.Photos(results = data)
                     }
+                }, onFailure = {
+                    uiState = SearchResultUiState.Failure(it) // stop loading.
                 }
-                is SafeResult.Failure -> {
-                    when (ret.failureResult) {
-                        is FailureResult.BadRequestFailure, is FailureResult.NetworkFailure,
-                        is FailureResult.NotFoundFailure, is FailureResult.OtherFailure, is FailureResult.UnAuthorizedFailure -> {
-                            uiState = SearchResultUiState.Error(ret.failureResult) // stop loading.
-                        }
-                    }
-                }
-            }
+            )
         }
     }
 

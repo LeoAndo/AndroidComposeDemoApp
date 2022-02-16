@@ -1,6 +1,5 @@
 package com.example.templateapp01.data.repository.impl
 
-import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.data.api.UnsplashService
 import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.data.api.response.toModel
@@ -18,7 +17,7 @@ internal class UnsplashRepositoryImpl @Inject constructor(
         query: String,
         page: Int,
         perPage: Int
-    ): SafeResult<List<UnSplashPhoto>> {
+    ): Result<List<UnSplashPhoto>> {
         return safeCall(dispatcher) {
             api.searchPhotos(query, page, perPage).results.map { it.toModel() }
         }

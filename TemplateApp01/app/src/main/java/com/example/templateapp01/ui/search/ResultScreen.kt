@@ -106,15 +106,15 @@ internal fun ResultContent(
                             .size(120.dp)
                     )
                 }
-                is SearchResultUiState.Error -> {
+                is SearchResultUiState.Failure -> {
                     ErrorMessage(
-                        message = "fetch error." + uiState.result.message,
+                        message = "fetch error." + uiState.throwable.localizedMessage,
                         onClickReload = onClickReload,
                         modifier = Modifier
                             .fillMaxSize()
                             .wrapContentSize()
                     )
-                    onError(uiState.result.message ?: "error.")
+                    onError(uiState.throwable.localizedMessage ?: "error.")
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
@@ -228,7 +228,7 @@ fun ResultContent_Preview_Loading() {
 fun ResultContent_Preview_Error() {
     TemplateApp01Theme {
         ResultContent(
-            uiState = SearchResultUiState.Error(result = FailureResult.NetworkFailure("error error error")),
+            uiState = SearchResultUiState.Failure(throwable = FailureResult.Network("error error error")),
             navController = rememberNavController(),
             onClickReload = {},
             modifier = Modifier.mainContentPadding(PaddingValues(12.dp, 12.dp, 12.dp, 92.dp)),

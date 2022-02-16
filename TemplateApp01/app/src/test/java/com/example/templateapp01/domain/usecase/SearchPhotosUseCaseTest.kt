@@ -2,7 +2,6 @@ package com.example.templateapp01.domain.usecase
 
 import com.example.templateapp01.CoroutinesTestRule
 import com.example.templateapp01.data.FailureResult
-import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.domain.repository.UnsplashRepository
 import com.example.templateapp01.domain.model.UnSplashPhoto
 import com.nhaarman.mockitokotlin2.doReturn
@@ -40,7 +39,7 @@ class SearchPhotosUseCaseTest {
     @Test
     fun `successful search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
-            val retValue: SafeResult<List<UnSplashPhoto>> = buildList {
+            val retValue: Result<List<UnSplashPhoto>> = buildList {
                 repeat(3) { id ->
                     add(
                         UnSplashPhoto(
@@ -55,13 +54,15 @@ class SearchPhotosUseCaseTest {
                     )
                 }
             }.let {
-                SafeResult.Success(it)
+                Result.success(it)
             }
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
-            when (searchPhotosUseCase(query = "dogs")) {
-                is SafeResult.Failure -> assert(false)
-                is SafeResult.Success -> assert(true)
-            }
+
+            searchPhotosUseCase(query = "dogs").fold(onSuccess = {
+                assert(true)
+            }, onFailure = {
+                assert(false)
+            })
         }
     }
 
@@ -69,16 +70,16 @@ class SearchPhotosUseCaseTest {
     fun `empty search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
 
-            val retValue: SafeResult<List<UnSplashPhoto>> = SafeResult.Success(emptyList())
+            val retValue: Result<List<UnSplashPhoto>> = Result.success(emptyList())
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
 
-            searchPhotosUseCase(query = "dogs")
-            when (val ret = searchPhotosUseCase(query = "dogs")) {
-                is SafeResult.Failure -> assert(false)
-                is SafeResult.Success -> {
-                    assert(ret.data.isEmpty())
+            searchPhotosUseCase(query = "dogs").fold(
+                onSuccess = { data ->
+                    assert(data.isEmpty())
+                }, onFailure = {
+                    assert(false)
                 }
-            }
+            )
         }
     }
 
@@ -86,15 +87,20 @@ class SearchPhotosUseCaseTest {
     fun `failure search Photos`() {
         coroutinesTestRule.testDispatcher.runBlockingTest {
 
-            val retValue = SafeResult.Failure(FailureResult.NetworkFailure("error!"))
+            val retValue = Result.failure<FailureResult>(FailureResult.Network("error!"))
 
             doReturn(retValue).whenever(unsplashRepository).searchPhotos(query = "dogs")
 
-            searchPhotosUseCase(query = "dogs")
-            when (searchPhotosUseCase(query = "dogs")) {
-                is SafeResult.Failure -> assert(true)
-                is SafeResult.Success -> assert(false)
-            }
+            searchPhotosUseCase(query = "dogs").fold(
+                onSuccess = {
+                    assert(false)
+                }, onFailure = {
+                    when (it) {
+                        is FailureResult.Network -> assert(true)
+                        else -> assert(false)
+                    }
+                }
+            )
         }
     }
 }

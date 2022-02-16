@@ -141,7 +141,7 @@ internal fun TodoListContent(
             FavoriteUiState.Initial -> {
 
             }
-            is FavoriteUiState.Error -> {
+            is FavoriteUiState.Failure -> {
                 Text(text = uiState.errorMessage)
             }
             is FavoriteUiState.UpdateTodoList -> {
@@ -227,7 +227,7 @@ fun TodoListContent_Preview_UpdateTodoList() {
 fun TodoListContent_Preview_Error() {
     TemplateApp01Theme {
         TodoListContent(
-            uiState = FavoriteUiState.Error(errorMessage = "error!"),
+            uiState = FavoriteUiState.Failure(errorMessage = "error!"),
             onClickTodoItem = {},
         )
     }

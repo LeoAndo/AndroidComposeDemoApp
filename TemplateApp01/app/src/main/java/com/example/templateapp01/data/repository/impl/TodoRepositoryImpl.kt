@@ -1,6 +1,5 @@
 package com.example.templateapp01.data.repository.impl
 
-import com.example.templateapp01.data.SafeResult
 import com.example.templateapp01.domain.repository.TodoRepository
 import com.example.templateapp01.data.room.dao.TodoDao
 import com.example.templateapp01.data.room.entity.TodoEntity
@@ -36,7 +35,7 @@ internal class TodoRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun findTodoDataById(id: Int): SafeResult<TodoData> {
+    override suspend fun findTodoDataById(id: Int): Result<TodoData> {
         return safeCall(dispatcher) { todoDao.findTodoDataById(id).toTodoData() }
     }
 
@@ -63,18 +62,18 @@ internal class TodoRepositoryImpl @Inject constructor(
         return todoDao.findTodoListAsFlow().map { it.toTodoDataList() }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getCompletedTodoList(): SafeResult<List<TodoData>> {
+    override suspend fun getCompletedTodoList(): Result<List<TodoData>> {
         return safeCall(dispatcher) { todoDao.findCompletedTodoList().toTodoDataList() }
     }
 
-    override suspend fun getInCompleteTodoList(): SafeResult<List<TodoData>> {
+    override suspend fun getInCompleteTodoList(): Result<List<TodoData>> {
         return safeCall(dispatcher) { todoDao.findInCompleteTodoList().toTodoDataList() }
     }
 
     override suspend fun getBetweenDatesTodoList(
         from: Date,
         to: Date
-    ): SafeResult<List<TodoData>> {
+    ): Result<List<TodoData>> {
         return safeCall(dispatcher) { todoDao.findBetweenDatesTodoList(from, to).toTodoDataList() }
     }
 }
