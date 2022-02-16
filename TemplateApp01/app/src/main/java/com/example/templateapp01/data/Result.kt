@@ -39,12 +39,14 @@ internal inline fun <T> SafeResult<T>.fold(
     onSuccess: (value: T) -> Unit,
     onFailure: (ErrorResult) -> Unit,
 ): SafeResult<T> {
-    val success = this as? SafeResult.Success
-    val failure = this as? SafeResult.Error
-    success?.let { onSuccess(success.data) }
-    failure?.let {
-        onFailure(failure.errorResult)
-        Log.e("fold", "error: " + failure.errorResult.localizedMessage)
+    when (this) {
+        is SafeResult.Error -> {
+            onFailure(errorResult)
+            Log.e("fold", "error: " + errorResult.localizedMessage)
+        }
+        is SafeResult.Success -> {
+            onSuccess(data)
+        }
     }
     return this
 }
