@@ -23,7 +23,7 @@ internal fun FullScreenLoading() {
             .fillMaxSize()
             .wrapContentSize(Alignment.Center)
     ) {
-        CircularProgressIndicator() // TODO: material3のCircularProgressIndicatorを使う
+        CircularProgressIndicator()
     }
 }
 
