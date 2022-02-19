@@ -38,7 +38,7 @@ object Libs {
     object AndroidX {
         object Core {
             const val coreKtx = "androidx.core:core-ktx:1.7.0"
-            const val splash = "androidx.core:core-splashscreen:1.0.0-alpha02"
+            const val splash = "androidx.core:core-splashscreen:1.0.0-beta01"
         }
 
         object Activity {
@@ -49,34 +49,34 @@ object Libs {
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.1.0-rc01"
+            const val version = "1.2.0-alpha03"
 
-            const val ui = "androidx.compose.ui:ui:1.1.0-beta04"
-            const val runtime = "androidx.compose.runtime:runtime:$version"
-            const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$version"
-            const val material = "androidx.compose.material3:material3:1.0.0-alpha02"
-            const val foundation = "androidx.compose.foundation:foundation:$version"
-            const val layout = "androidx.compose.foundation:foundation-layout:$version"
-            const val tooling = "androidx.compose.ui:ui-tooling:$version"
-            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:1.0.5"
-            const val animation = "androidx.compose.animation:animation:$version"
-            const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
-            const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:$version"
+            const val ui = "androidx.compose.ui:ui:1.2.0-alpha03"
+            const val runtime = "androidx.compose.runtime:runtime:1.1.0"
+            const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:1.1.0"
+            const val material = "androidx.compose.material3:material3:1.0.0-alpha05"
+            const val foundation = "androidx.compose.foundation:foundation:1.1.0"
+            const val layout = "androidx.compose.foundation:foundation-layout:1.1.0"
+            const val tooling = "androidx.compose.ui:ui-tooling:1.1.0"
+            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:1.1.0"
+            const val animation = "androidx.compose.animation:animation:1.1.0"
+            const val uiTest = "androidx.compose.ui:ui-test-junit4:1.1.0"
+            const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:1.1.0"
         }
 
         object Lifecycle {
             private const val version = "2.4.0"
             const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$version"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
-            const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+            const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
         }
 
         object Navigation {
-            const val navigationCompose = "androidx.navigation:navigation-compose:2.4.0-rc01"
+            const val navigationCompose = "androidx.navigation:navigation-compose:2.5.0-alpha02"
         }
 
         object Hilt {
-            const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-rc01"
+            const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
         }
 
         object Test {
@@ -101,12 +101,12 @@ object Libs {
     }
 
     object Hilt {
-        private const val version = "2.39"
+        private const val version = "2.40.5"
 
         const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
         const val android = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-compiler:$version"
-        const val testing = "com.google.dagger:hilt-android-testing:$version"
+        const val testing = "com.google.dagger:hilt-android-testing:2.39"
     }
 
     object JUnit {
@@ -125,9 +125,9 @@ object Libs {
     }
 
     object Moshi {
-        private const val version = "1.9.3"
+        private const val version = "1.12.0"
         const val moshi = "com.squareup.moshi:moshi:$version"
-        const val codegen = "com.squareup.moshi:moshi-kotlin-codegen:$version"
+        const val codegen = "com.squareup.moshi:moshi-kotlin-codegen:1.9.3"
         const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:$version"
     }
     object OkhHttp3 {

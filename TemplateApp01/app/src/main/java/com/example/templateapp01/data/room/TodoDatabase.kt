@@ -12,7 +12,8 @@ import com.example.templateapp01.data.room.entity.TodoEntity
 
 @Database(
     entities = [TodoEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false,
 )
 @TypeConverters(DateConverter::class)
 internal abstract class TodoDatabase : RoomDatabase() {
