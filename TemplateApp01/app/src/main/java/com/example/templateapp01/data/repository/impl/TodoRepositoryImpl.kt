@@ -10,7 +10,6 @@ import com.example.templateapp01.data.safeCall
 import com.example.templateapp01.di.IoDispatcher
 import com.example.templateapp01.domain.model.TodoData
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -60,7 +59,7 @@ internal class TodoRepositoryImpl @Inject constructor(
     }
 
     override fun getTodoList(): Flow<List<TodoData>> {
-        return todoDao.findTodoListAsFlow().map { it.toTodoDataList() }.flowOn(Dispatchers.IO)
+        return todoDao.findTodoListAsFlow().map { it.toTodoDataList() }.flowOn(dispatcher)
     }
 
     override suspend fun getCompletedTodoList(): SafeResult<List<TodoData>> {
