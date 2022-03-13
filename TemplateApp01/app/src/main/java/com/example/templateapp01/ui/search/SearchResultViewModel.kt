@@ -42,7 +42,7 @@ internal class SearchResultViewModel @Inject constructor(
                 is SafeResult.Error -> {
                     when (ret.errorResult) {
                         is ErrorResult.BadRequestError, is ErrorResult.NetworkError,
-                        is ErrorResult.NotFoundError, is ErrorResult.OtherError, is ErrorResult.UnAuthorizedError -> {
+                        is ErrorResult.NotFoundError, is ErrorResult.UnexpectedError, is ErrorResult.UnAuthorizedError -> {
                             uiState = SearchResultUiState.Error(ret.errorResult) // stop loading.
                         }
                     }

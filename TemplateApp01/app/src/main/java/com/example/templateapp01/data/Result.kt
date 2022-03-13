@@ -31,7 +31,7 @@ internal sealed class ErrorResult : Exception() {
     data class NetworkError(override val message: String? = "NetworkError") :
         ErrorResult()
 
-    data class OtherError(override val message: String? = "OtherError") :
+    data class UnexpectedError(override val message: String? = "UnexpectedError") :
         ErrorResult()
 }
 
@@ -87,7 +87,7 @@ internal suspend fun <T> safeCall(
                         }
                         else -> {
                             SafeResult.Error(
-                                ErrorResult.OtherError(
+                                ErrorResult.UnexpectedError(
                                     e.localizedMessage
                                 )
                             )
@@ -103,7 +103,7 @@ internal suspend fun <T> safeCall(
                 }
                 else -> {
                     SafeResult.Error(
-                        ErrorResult.OtherError(
+                        ErrorResult.UnexpectedError(
                             e.localizedMessage
                         )
                     )
