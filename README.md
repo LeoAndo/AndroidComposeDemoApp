@@ -24,7 +24,7 @@ templates for jetpack compose.
   - [Create a `stateless Composable` and create a `Preview Composable` for each UiState](https://github.com/LeoAndo/android-compose-templates/pull/18#discussion_r786196548)
   - [use Scaffold content paddingValues](https://github.com/LeoAndo/android-compose-templates/pull/34)
   - If simple logic, Call Repository (Interface) directly from ViewModel.
-  - Error handling(try catch) is done by ViewModel.
+  - [Error handling(try catch) is done by ViewModel](https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/app/src/main/java/com/example/templateapp01/ui/favorite/FavoriteViewModel.kt#L24:L27)
   - [Threading](https://developer.android.com/jetpack/guide/ui-layer#threading-concurrency)
 - domain layer
   - Pure Kotlin.
@@ -32,7 +32,8 @@ templates for jetpack compose.
   - DO inject Dispatchers  (Default Thread)
 - data layer
   - Model(Serialize).
-  - Error handling and returning a custom Exception instance ([Does not Use kotlin.Result](https://github.com/LeoAndo/android-compose-templates/pull/45))
+  - ~~Error handling and returning a custom Exception instance ([Does not Use kotlin.Result](https://github.com/LeoAndo/android-compose-templates/pull/45))~~
+  - [throw custom Exception instance](https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/app/src/main/java/com/example/templateapp01/data/Result.kt#L54:L64)
   - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
   - DO inject Dispatchers (IO Thread)
 - Proguard / R8
