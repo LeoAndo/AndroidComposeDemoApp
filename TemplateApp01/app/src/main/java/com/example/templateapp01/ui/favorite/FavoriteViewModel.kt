@@ -21,13 +21,14 @@ internal class FavoriteViewModel @Inject constructor(
     private val todoDoneUseCase: TodoDoneUseCase
 ) : ViewModel() {
     var uiState by mutableStateOf<FavoriteUiState>(FavoriteUiState.Initial)
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        // TODO: Failure: whenでエラーパターンによって処理を変える
+        uiState = FavoriteUiState.Error(throwable.localizedMessage ?: "error!")
+    }
 
     init {
         Log.d(LOG_TAG, "init: " + hashCode())
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            // Failure
-            uiState = FavoriteUiState.Error(throwable.localizedMessage ?: "error!")
-        }) {
+        viewModelScope.launch(coroutineExceptionHandler) {
             todoRepository.getTodoList().collect {
                 uiState = FavoriteUiState.UpdateTodoList(it)
             }
@@ -40,19 +41,19 @@ internal class FavoriteViewModel @Inject constructor(
     }
 
     fun addTodoData(todoData: TodoData) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             todoRepository.addTodoData(todoData)
         }
     }
 
     fun updateTodoData(todoDataId: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             todoDoneUseCase(todoDataId)
         }
     }
 
     fun deleteAllTodoItems() {
-        viewModelScope.launch {
+        viewModelScope.launch(coroutineExceptionHandler) {
             todoRepository.deleteAllTodoItems()
         }
     }

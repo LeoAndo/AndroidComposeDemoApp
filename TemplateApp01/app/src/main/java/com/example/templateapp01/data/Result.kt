@@ -51,6 +51,22 @@ internal inline fun <T> SafeResult<T>.fold(
     return this
 }
 
+internal suspend fun <T> dataOrThrow(
+    dispatcher: CoroutineDispatcher,
+    apiCall: suspend () -> T
+): T {
+    return withContext(dispatcher) {
+        return@withContext when (val result = safeCall(dispatcher) { apiCall.invoke() }) {
+            is SafeResult.Error -> throw  result.errorResult
+            is SafeResult.Success -> result.data
+        }
+    }
+}
+
+// TODO: このメソッドをprivateにしたい.
+@Deprecated(
+    message = "use com.example.templateapp01.data.ResultKt.dataOrThrow"
+)
 internal suspend fun <T> safeCall(
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
