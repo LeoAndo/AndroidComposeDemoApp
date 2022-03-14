@@ -22,7 +22,7 @@ internal class FavoriteViewModel @Inject constructor(
 ) : ViewModel() {
     var uiState by mutableStateOf<FavoriteUiState>(FavoriteUiState.Initial)
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        // TODO: Failure: whenでエラーパターンによって処理を変える
+        // TODO: Change the process depending on the error pattern with when
         uiState = FavoriteUiState.Error(throwable.localizedMessage ?: "error!")
     }
 
