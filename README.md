@@ -91,7 +91,7 @@ https://android-developers.googleblog.com/2021/12/rebuilding-our-guide-to-app-ar
 https://developer.android.com/jetpack/guide/ui-layer<br>
 https://developer.android.com/jetpack/guide/domain-layer<br>
 https://developer.android.com/jetpack/guide/data-layer<br>
-
+[Entities](https://youtu.be/cfak1jDKM_4?t=79)<br>
 ## about compose
 https://developer.android.com/jetpack/compose/mental-model<br>
 https://github.com/android/compose-samples<br>
