@@ -33,6 +33,7 @@ templates for jetpack compose.
   - DO inject Dispatchers  (Default Thread)
 - data layer
   - Model(Serialize).
+  - [For small apps, don't create "domain entity" and "mapper". Use "data entity" directly in the UI layer](https://www.youtube.com/watch?t=79&v=cfak1jDKM_4&feature=youtu.be)
   - ~~Error handling and returning a custom Exception instance ([Does not Use kotlin.Result](https://github.com/LeoAndo/android-compose-templates/pull/45))~~
   - [throw custom Exception instance](https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/app/src/main/java/com/example/templateapp01/data/Result.kt#L54:L64)
   - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
