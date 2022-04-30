@@ -26,6 +26,7 @@ templates for jetpack compose.
   - If simple logic, Call Repository (Interface) directly from ViewModel.
   - [Error handling(try catch) is done by ViewModel](https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/app/src/main/java/com/example/templateapp01/ui/favorite/FavoriteViewModel.kt#L24:L27)
   - [Threading](https://developer.android.com/jetpack/guide/ui-layer#threading-concurrency)
+  - The file named ViewModel is a StateHolder.
 - domain layer
   - Pure Kotlin.
   - [Threading](https://developer.android.com/jetpack/guide/domain-layer#threading)
