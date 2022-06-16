@@ -15,6 +15,7 @@ import com.example.templateapp01.data.ErrorResult
 import com.example.templateapp01.ui.components.*
 import com.example.templateapp01.ui.components.FullScreenLoading
 import com.example.templateapp01.ui.extentions.mainContentPadding
+import com.example.templateapp01.ui.preview.PreviewDevices
 import com.example.templateapp01.ui.theme.TemplateApp01Theme
 
 // Stateful Composable that depends on ViewModel.
@@ -104,12 +105,7 @@ fun HomeContent_Preview_Loading() {
     }
 }
 
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    device = Devices.PIXEL_4,
-    showSystemUi = true
-)
+@PreviewDevices
 @Composable
 fun HomeContent_Preview_Error() {
     TemplateApp01Theme {

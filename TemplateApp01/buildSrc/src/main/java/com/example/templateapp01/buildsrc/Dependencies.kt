@@ -57,7 +57,7 @@ object Libs {
             const val material = "androidx.compose.material3:material3:1.0.0-alpha05"
             const val foundation = "androidx.compose.foundation:foundation:1.1.0"
             const val layout = "androidx.compose.foundation:foundation-layout:1.1.0"
-            const val tooling = "androidx.compose.ui:ui-tooling:1.1.0"
+            const val tooling = "androidx.compose.ui:ui-tooling:1.2.0-alpha08"
             const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:1.1.0"
             const val animation = "androidx.compose.animation:animation:1.1.0"
             const val uiTest = "androidx.compose.ui:ui-test-junit4:1.1.0"
