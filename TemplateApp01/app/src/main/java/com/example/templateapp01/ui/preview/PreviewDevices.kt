@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
-    device = Devices.TABLET,
+    device = Devices.FOLDABLE,
     name = "Foldable"
 )
 annotation class PreviewDevices() {}

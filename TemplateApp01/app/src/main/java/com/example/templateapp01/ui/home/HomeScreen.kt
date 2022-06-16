@@ -1,14 +1,11 @@
 package com.example.templateapp01.ui.home
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.templateapp01.data.ErrorResult
@@ -87,12 +84,7 @@ internal fun HomeContent(
     }
 }
 
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
-    device = Devices.PIXEL_4,
-    showSystemUi = true
-)
+@PreviewDevices
 @Composable
 fun HomeContent_Preview_Loading() {
     TemplateApp01Theme {

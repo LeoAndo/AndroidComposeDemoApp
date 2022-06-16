@@ -49,19 +49,19 @@ object Libs {
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.2.0-alpha03"
+            const val version = "1.2.0-beta02"
 
-            const val ui = "androidx.compose.ui:ui:1.2.0-alpha03"
+            const val ui = "androidx.compose.ui:ui:1.2.0-beta02"
             const val runtime = "androidx.compose.runtime:runtime:1.1.0"
             const val runtimeLivedata = "androidx.compose.runtime:runtime-livedata:1.1.0"
             const val material = "androidx.compose.material3:material3:1.0.0-alpha05"
             const val foundation = "androidx.compose.foundation:foundation:1.1.0"
             const val layout = "androidx.compose.foundation:foundation-layout:1.1.0"
-            const val tooling = "androidx.compose.ui:ui-tooling:1.2.0-alpha08"
-            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:1.1.0"
+            const val tooling = "androidx.compose.ui:ui-tooling:1.2.0-beta02"
+            const val toolingPreview = "androidx.compose.ui:ui-tooling-preview:1.2.0-beta02"
             const val animation = "androidx.compose.animation:animation:1.1.0"
-            const val uiTest = "androidx.compose.ui:ui-test-junit4:1.1.0"
-            const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:1.1.0"
+            const val uiTest = "androidx.compose.ui:ui-test-junit4:1.2.0-beta02"
+            const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:1.2.0-beta02"
         }
 
         object Lifecycle {
