@@ -44,7 +44,7 @@ internal object ApiModule {
             })
         }
         return Retrofit.Builder()
-            .callFactory { request -> okHttpClientBuilder.build().newCall(request) }
+            .client(okHttpClientBuilder.build())
             .baseUrl(BuildConfig.UNSPLASH_API_DOMAIN)
             .addConverterFactory(MoshiConverterFactory.create(createMoshi()))
             .build()
