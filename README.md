@@ -2,10 +2,7 @@
 templates for jetpack compose.
 
 # MAD score
-
-![summary](https://user-images.githubusercontent.com/16476224/150646890-a853e0b6-5123-47c9-a5ea-fe23998f61e4.png)
-![jetpack](https://user-images.githubusercontent.com/16476224/150646886-f1a7a8ff-fe19-4958-9c3d-c17d370d390c.png)
-![kotlin](https://user-images.githubusercontent.com/16476224/150646888-b612cad9-0128-47a4-b1f0-cbb9edc74b0c.png)
+https://madscorecard.withgoogle.com/scorecards/226781239/<br>
 
 
 # Developement Environment
