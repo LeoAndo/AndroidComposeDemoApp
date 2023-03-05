@@ -1,9 +1,6 @@
-# MAD score
-https://madscorecard.withgoogle.com/scorecards/226781239/<br>
-
 # Developement Environment
 
-<img width="515" alt="スクリーンショット 2021-12-18 13 53 22" src="https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/capture/android_studio_version.png">
+<img width="515" alt="スクリーンショット 2021-12-18 13 53 22" src="https://github.com/LeoAndo/AndroidComposeDemoApp/blob/main/capture/android_studio_version.png">
 
 # App architecture
 
@@ -17,7 +14,7 @@ https://madscorecard.withgoogle.com/scorecards/226781239/<br>
   - [Create a `stateless Composable` and create a `Preview Composable` for each UiState](https://github.com/LeoAndo/android-compose-templates/pull/18#discussion_r786196548)
   - [use Scaffold content paddingValues](https://github.com/LeoAndo/android-compose-templates/pull/34)
   - If simple logic, Call Repository (Interface) directly from ViewModel.
-  - [Error handling(try catch) is done by ViewModel](https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/app/src/main/java/com/example/templateapp01/ui/favorite/FavoriteViewModel.kt#L24:L27)
+  - [Error handling(try catch) is done by ViewModel](https://github.com/LeoAndo/android-compose-templates/blob/main/app/src/main/java/com/example/templateapp01/ui/favorite/FavoriteViewModel.kt#L24:L27)
   - [Threading](https://developer.android.com/jetpack/guide/ui-layer#threading-concurrency)
   - The file named ViewModel is a StateHolder.
 - domain layer
@@ -28,7 +25,7 @@ https://madscorecard.withgoogle.com/scorecards/226781239/<br>
   - Model(Serialize).
   - [For small apps, don't create "domain entity" and "mapper". Use "data entity" directly in the UI layer](https://www.youtube.com/watch?t=79&v=cfak1jDKM_4&feature=youtu.be)
   - ~~Error handling and returning a custom Exception instance ([Does not Use kotlin.Result](https://github.com/LeoAndo/android-compose-templates/pull/45))~~
-  - [throw custom Exception instance](https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/app/src/main/java/com/example/templateapp01/data/Result.kt#L54:L64)
+  - [throw custom Exception instance](https://github.com/LeoAndo/android-compose-templates/blob/main/app/src/main/java/com/example/templateapp01/data/Result.kt#L54:L64)
   - [Threading](https://developer.android.com/jetpack/guide/data-layer#threading)
   - DO inject Dispatchers (IO Thread)
 - Proguard / R8
@@ -49,9 +46,9 @@ OS: 8.0 (API Level 26) or later.
   - DI
     - Dagger Hilt 
   - Unit Test
-    - [test](https://github.com/LeoAndo/android-compose-templates/tree/main/TemplateApp01/app/src/test/java)
-    - [sharedTest](https://github.com/LeoAndo/android-compose-templates/tree/main/TemplateApp01/app/src/sharedTest/java/com/example/templateapp01) 
-    - [androidTest](https://github.com/LeoAndo/android-compose-templates/tree/main/TemplateApp01/app/src/androidTest/java/com/example/templateapp01) 
+    - [test](https://github.com/LeoAndo/android-compose-templates/tree/main/app/src/test/java)
+    - [sharedTest](https://github.com/LeoAndo/android-compose-templates/tree/main/app/src/sharedTest/java/com/example/templateapp01) 
+    - [androidTest](https://github.com/LeoAndo/android-compose-templates/tree/main/app/src/androidTest/java/com/example/templateapp01) 
   - Network
     -  (retrofit, okhttp, moshi)
   - local
@@ -73,11 +70,7 @@ OS: 8.0 (API Level 26) or later.
 
 | Pixel 4 OS12 |
 |:---|
-|<img src="https://github.com/LeoAndo/android-compose-templates/blob/main/TemplateApp01/capture/untitled.gif" width=320 /> |
-
-# Other Android Templates
-https://github.com/LeoAndo/AndroidAppTemplate<br>
-https://github.com/LeoAndo/android-app-teaching-material-templates<br>
+|<img src="https://github.com/LeoAndo/android-compose-templates/blob/main/capture/untitled.gif" width=320 /> |
 
 # refs
 
@@ -99,13 +92,6 @@ https://m3.material.io/<br>
 https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary<br>
 https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/material3/material3/samples/src/main/java/androidx/compose/material3/samples/NavigationBarSamples.kt?hl=ja<br>
 https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:navigation/navigation-compose/samples/src/main/java/androidx/navigation/compose/samples/NavigationSamples.kt?hl=ja<br>
-
-## about paging
-
-https://github.com/yanzm/UiStateSample<br>
-
-## about Test Framework
-https://github.com/android/testing-samples<br>
 
 ## about Expert
 https://github.com/arriolac<br>
